@@ -5,32 +5,67 @@ using System.Linq;
 using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
-
-public class Constant
-{
-    public const float Gravity = 6.6743e-11f;
-}
+using Vec3 = UnityEngine.Vector3;
 
 public class PhysicManager : MonoBehaviour
 {
+    public class Constant
+    {
+        public const float Gravity = 6.6743e-11f;
+        public const float EarthMass = 5.927e24f;
+        public const float AstronomicalSpeed = 1.0e3f;
+        public const float AstronomicalDistance = 1.495978707e11f;
+        public const float deltaT = 3600f;
+    }
+    Dictionary<Vector3, float> originPointsData;
+
+    [SerializeField] public List<CelestialObject> prefabs;
+
+    public List<CelestialObject> instantiatedObjects;
+
+    static public Vector3 VectorToSystem(Vec3 unityVec)
+    {
+        return new Vector3(unityVec.x, unityVec.y, unityVec.z);
+    }
+    static public Vec3 VectorToEngine(Vector3 systemVec)
+    {
+        return new Vec3(systemVec.X, systemVec.Y, systemVec.Z);
+    }
+
     void Start()
     {
-        
+        foreach (CelestialObject celestialObjectprefab in prefabs)
+        {
+            CelestialObject celestialInstance = Instantiate(celestialObjectprefab);
+            celestialInstance.msAccel = GravitationalForce(celestialInstance);
+            celestialInstance.oldMsAccel = celestialInstance.msAccel;
+            instantiatedObjects.Add(celestialInstance);
+            Debug.Log("Instancing");
+            Debug.Log(celestialInstance.name);
+            Debug.Log("speed " + celestialInstance.msSpeed);
+            Debug.Log("pos " + celestialInstance.AstronomicalPos);
+            Debug.Log("mass " + celestialInstance.kgMass);
+        }
     }
 
     void Update()
     {
-        // t + delta T = ACCUMALATION DU TEMPS
+        foreach (CelestialObject celestialObject in instantiatedObjects)
+        {
+            celestialObject.transform.position = VectorToEngine(NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel, Constant.deltaT) / Constant.AstronomicalDistance);
+            celestialObject.msAccel = GravitationalForce(celestialObject);
+            celestialObject.msSpeed = NewSpeed(celestialObject.msSpeed, celestialObject.oldMsAccel, celestialObject.msAccel, Constant.deltaT);
+        }
     }
 
     /*------------------------------------------Base Algorithm--------------------------------*/
-    Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration, float deltaT)
+    public Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration, float deltaT)
     {
-        Vector3 result = oldPosition + oldSpeed * deltaT +  0.5f * oldAcceleration * Mathf.Pow(deltaT, 2);
+        Vector3 result = oldPosition + oldSpeed * deltaT + 0.5f * oldAcceleration * Mathf.Pow(deltaT, 2);
         return result;
     }
 
-    Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
+    public Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
     {
         Vector3 distance = target - origin; // vector Rij
 
@@ -39,7 +74,7 @@ public class PhysicManager : MonoBehaviour
         return result;
     }
 
-    Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration, float deltaT)
+    public Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration, float deltaT)
     {
         Vector3 result = oldSpeed + ((oldAcceleration + newAcceleration) * 0.5f) * deltaT; 
         return result;
@@ -47,25 +82,31 @@ public class PhysicManager : MonoBehaviour
 
 
     /*------------------------------------------Total Gravitational Field--------------------------------*/
-    Vector3 TotalGravitionalField(Vector3 target, Dictionary<Vector3, float> originPointsData)
+    public Vector3 TotalGravitionalField(Vector3 target)
     {
         Vector3 sum = Vector3.Zero;
-        foreach (KeyValuePair<Vector3, float> data in originPointsData)
+        foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            sum += Acceleration(data.Key, target, data.Value);
+            Vector3 origin = celestialObject.AstronomicalPos;
+            float originMass = celestialObject.kgMass;
+            sum += Acceleration(origin, target, originMass);
         }
         return sum;
     }
 
 
     /*------------------------------------------Gravitational Acceleration------------------------------------------*/
-    Vector3 GravitationalForce(Vector3 target, Dictionary<Vector3, float> originPointsData)
+    public Vector3 GravitationalForce(CelestialObject m_celestial)
     {
         Vector3 sum = Vector3.Zero;
-        foreach (KeyValuePair<Vector3, float> data in originPointsData)
+        foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            if (target !=data.Key)
-                sum += Acceleration(data.Key, target, data.Value);
+            if (m_celestial != celestialObject)
+            {
+                Vector3 origin = celestialObject.AstronomicalPos;
+                Vector3 target = m_celestial.AstronomicalPos;
+                sum += Acceleration(origin, target, celestialObject.kgMass);
+            }
         }
         return sum;
     }
