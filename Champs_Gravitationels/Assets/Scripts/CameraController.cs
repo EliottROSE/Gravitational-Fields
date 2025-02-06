@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     // Update is called once per frame
@@ -37,11 +37,26 @@ public class CameraController : MonoBehaviour
             FreeMode();
         }
 
-        if(target == null)
+        if(Input.GetMouseButtonDown(0))
         {
-            return;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                if(hit.transform.CompareTag("TrackingObject"))
+                {
+                    SelectObject(hit.transform);
+                }
+            }
+            else
+            {
+                DeselectObject();
+            }
         }
+    }
 
+    void OrbitMode()
+    {
         //Rotation with directional arrows
         azimuth += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
         elevation += Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
@@ -58,5 +73,38 @@ public class CameraController : MonoBehaviour
         //Apply position and orientation
         transform.position = position;
         transform.LookAt(target);
+    }
+
+    void FreeMode()
+    {
+        yaw += Input.GetAxis("Mouse X") * lookSpeed;
+        pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
+        pitch = Mathf.Clamp(pitch, -90f, 90f);
+
+        transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed * Time.deltaTime;
+        transform.position += transform.rotation * move;
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+        }
+    }
+
+    void SelectObject(Transform newTarget)
+    {
+        target = newTarget;
+        isOrbitMode = true;
+    }
+
+    void DeselectObject()
+    {
+        isOrbitMode = false;
+        target = null;
     }
 }
