@@ -77,9 +77,12 @@ public class CameraController : MonoBehaviour
 
     void FreeMode()
     {
-        yaw += Input.GetAxis("Mouse X") * lookSpeed;
-        pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
-        pitch = Mathf.Clamp(pitch, -90f, 90f);
+        if(Input.GetMouseButton(1))
+        {
+            yaw += Input.GetAxis("Mouse X") * lookSpeed;
+            pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
+            pitch = Mathf.Clamp(pitch, -90f, 90f);
+        }
 
         transform.rotation = Quaternion.Euler(pitch, yaw, 0);
 
