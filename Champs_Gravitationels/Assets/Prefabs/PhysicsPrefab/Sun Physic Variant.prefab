@@ -87,7 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 330000
+  mass: 332946.06
   speed: 0
   position: {x: 0, y: 0, z: 0}
-  name: Sun
