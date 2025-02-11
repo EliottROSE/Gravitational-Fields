@@ -80,6 +80,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 1
-  speed: 107226
-  position: {x: 0, y: 0, z: 1}
-  name: Earth
+  speed: 1
+  position: {x: 10, y: 0, z: 1}

@@ -8,41 +8,31 @@ using System;
 
 public class CelestialObject : MonoBehaviour
 {
-    [SerializeField] float mass;
-    [SerializeField] float speed;
-    [SerializeField] Vec3 position;
-    [SerializeField] String name;
+    [SerializeField] float mass = 0f;
+    [SerializeField] float speed = 0f;
+    [SerializeField] public Vec3 position = Vec3.zero;
+    //[SerializeField] String name;
 
 
     [NonSerialized] public float kgMass;
     public Vector3 msSpeed;
+
     public Vector3 msAccel;
     public Vector3 oldMsAccel;
+
     public Vector3 AstronomicalPos;
 
     private void Awake()
     {
         kgMass = mass * PhysicManager.Constant.EarthMass;
-        msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.AstronomicalSpeed; // change to km.s-1 not km.h-1
-        AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
-        Debug.Log(name);
-        Debug.Log("speed " + msSpeed);
-        Debug.Log("pos " + AstronomicalPos);
-        Debug.Log("mass " + kgMass);
-    }
-    //void Start()
-    //{
-    //    kgMass = mass * PhysicManager.Constant.EarthMass;
-    //    msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.AstronomicalSpeed; // change to km.s-1 not km.h-1
-    //    AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
-    //    Debug.Log(name);
-    //    Debug.Log("speed " + msSpeed);
-    //    Debug.Log("pos " + AstronomicalPos);
-    //    Debug.Log("mass " + kgMass);
-    //}
 
-    void Update()
-    {
-        
+        msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.AstronomicalSpeed;
+
+        AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
+
+        //Debug.Log(name);
+        //Debug.Log("speed " + msSpeed);
+        //Debug.Log("pos " + AstronomicalPos);
+        //Debug.Log("mass " + kgMass);
     }
 }
