@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
 using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
@@ -13,9 +10,9 @@ public class PhysicManager : MonoBehaviour
     {
         public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   
         public const float EarthMass = 5.927e24f; // kg
-        public const float AstronomicalSpeed = 1000; // m.s-1
+        public const float MeterPerSecToKmPerSec = 1000; // m.s-1
         public const float AstronomicalDistance = 1.495978707e11f; // m
-        public const float deltaT = 3600000f; // s
+        public const float DeltaT = 3600000f; // s
     }
     Dictionary<Vector3, float> originPointsData;
 
@@ -23,11 +20,11 @@ public class PhysicManager : MonoBehaviour
 
     public List<CelestialObject> instantiatedObjects;
 
-    static public Vector3 VectorToSystem(Vec3 unityVec)
+    public static Vector3 VectorToSystem(Vec3 unityVec)
     {
         return new Vector3(unityVec.x, unityVec.y, unityVec.z);
     }
-    static public Vec3 VectorToEngine(Vector3 systemVec)
+    public static Vec3 VectorToEngine(Vector3 systemVec)
     {
         return new Vec3(systemVec.X, systemVec.Y, systemVec.Z);
     }
@@ -64,7 +61,7 @@ public class PhysicManager : MonoBehaviour
     {
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel, Constant.deltaT);
+            Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel);
             celestialObject.AstronomicalPos = pos;
 
             Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
@@ -76,15 +73,15 @@ public class PhysicManager : MonoBehaviour
             celestialObject.oldMsAccel = celestialObject.msAccel;
             celestialObject.msAccel = GravitationalForce(celestialObject);
 
-            celestialObject.msSpeed = NewSpeed(celestialObject.msSpeed, celestialObject.oldMsAccel, celestialObject.msAccel, Constant.deltaT);
+            celestialObject.msSpeed = NewSpeed(celestialObject.msSpeed, celestialObject.oldMsAccel, celestialObject.msAccel);
 
         }
     }
 
     /*------------------------------------------Base Algorithm--------------------------------*/
-    public Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration, float deltaT)
+    public Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration)
     {
-        Vector3 result = oldPosition + (oldSpeed * deltaT) + (0.5f * oldAcceleration * Mathf.Pow(deltaT, 2));
+        Vector3 result = oldPosition + oldSpeed * Constant.DeltaT + 0.5f * oldAcceleration * Mathf.Pow(Constant.DeltaT, 2f);
         return result;
     }
 
@@ -97,9 +94,9 @@ public class PhysicManager : MonoBehaviour
         return result;
     }
 
-    public Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration, float deltaT)
+    public Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration)
     {
-        Vector3 result = oldSpeed + ((oldAcceleration + newAcceleration) * 0.5f) * deltaT; 
+        Vector3 result = oldSpeed + (oldAcceleration + newAcceleration) * 0.5f * Constant.DeltaT; 
         return result;
     }
 

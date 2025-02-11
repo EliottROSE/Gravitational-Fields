@@ -26,7 +26,7 @@ public class CelestialObject : MonoBehaviour
     {
         kgMass = mass * PhysicManager.Constant.EarthMass;
 
-        msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.AstronomicalSpeed;
+        msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.MeterPerSecToKmPerSec;
 
         AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
 
