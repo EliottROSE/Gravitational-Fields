@@ -408,6 +408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 5634238979271938835, guid: 617fbfec9b7c6e7498b4008fce0cf3d6, type: 3}
+  - {fileID: 3380510916457202282, guid: d36b4c828ac248b488c3a8143a27b279, type: 3}
+  - {fileID: 8054892799927412492, guid: 55b6cbdf61abf1f47afb0a2ff5c81fbe, type: 3}
   - {fileID: 813178446052975709, guid: 74bad4c6eea6b6146a500d8e38f626f1, type: 3}
   instantiatedObjects: []
 --- !u!4 &2080043054
