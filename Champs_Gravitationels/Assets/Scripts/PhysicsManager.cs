@@ -47,29 +47,29 @@ public class PhysicManager : MonoBehaviour
             // Do not need to compute pos, precalculate
             celestialObject.oldMsAccel = Vector3.Zero;
             celestialObject.msAccel = GravitationalForce(celestialObject); // compute initial acceleration
-            Debug.Log(celestialObject.name);
+            /*Debug.Log(celestialObject.name);
             Debug.Log("Start data");
             Debug.Log("AstronomicalPos : " + celestialObject.AstronomicalPos);
             Debug.Log("EnginePos : " + celestialObject.transform.position);
             Debug.Log("old : " + celestialObject.oldMsAccel);
             Debug.Log("Accel : " + celestialObject.msAccel);
-            Debug.Log("speed : " + celestialObject.msSpeed);
+            Debug.Log("speed : " + celestialObject.msSpeed);*/
         }
     }
 
     void FixedUpdate()
     {
         frame++;
-        Debug.Log("-------------------------------------------------------------------------------------------------------------");
-        Debug.Log("Frame : " + frame);
+        /*Debug.Log("-------------------------------------------------------------------------------------------------------------");
+        Debug.Log("Frame : " + frame);*/
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
             Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel);
             celestialObject.AstronomicalPos = pos;
 
-            Debug.Log("Name : " + celestialObject.name);
+            /*Debug.Log("Name : " + celestialObject.name);
             Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
-            Debug.Log("New EnginePos : " + celestialObject.transform.position);
+            Debug.Log("New EnginePos : " + celestialObject.transform.position);*/
 
             celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance);
 

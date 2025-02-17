@@ -52,9 +52,8 @@ public class ObjectInfo : UIPanel
 
     public override void Enable()
     {
-        CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
         
-        gameObject.SetActive(true);
+        CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
         
         m_xPosPlaceholder = xPosInput.placeholder as TextMeshProUGUI;
         m_yPosPlaceholder = yPosInput.placeholder as TextMeshProUGUI;
@@ -66,12 +65,16 @@ public class ObjectInfo : UIPanel
         m_massPlaceholder = massInput.placeholder as TextMeshProUGUI;
         
         /*
+         * Must call gameobject twice to enable all children before enabling the actual parent
+         * Otherwise, causes a NullReferenceException
+         */
+        gameObject.gameObject.SetActive(true);
+        
+        /*
          * Begin object info refreshing every 2s
          * Must be done after the GameObject has been enabled
          */
         StartCoroutine(DataUpdateLoop());
-
-        //UIManager.Instance.background.SetActive(true);
     }
 
     public override void Disable()
@@ -117,6 +120,7 @@ public class ObjectInfo : UIPanel
     private void UpdateSelectedObject()
     {
         m_selectedObj = m_camController?.selectedObject ? m_camController.selectedObject : null;
+        UpdateData();
     }
 
     #endregion

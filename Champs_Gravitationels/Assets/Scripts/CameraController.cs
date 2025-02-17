@@ -19,6 +19,7 @@ public class CameraController : MonoBehaviour
     private float m_yaw = 0.0f;
     private float m_pitch = 0.0f;
     private bool m_isOrbitMode = false;
+    private bool m_useStaticCamera = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -27,7 +28,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void LateUpdate()
     {
         if (m_isOrbitMode && m_target)
         {
@@ -68,10 +69,12 @@ public class CameraController : MonoBehaviour
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
         Quaternion rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
-        Vector3 position = m_target.position - (rotation * Vector3.forward * distance);
+        Vector3 position = m_target.position - rotation * Vector3.forward * distance;
 
         //Apply position and orientation
-        transform.position = position;
+        if (!m_useStaticCamera)
+            transform.position = position;
+        
         transform.LookAt(m_target);
     }
 
@@ -101,9 +104,6 @@ public class CameraController : MonoBehaviour
 
     private void SelectObject(Transform newTarget)
     {
-        if (m_target != newTarget)
-            CustomEvents.ObjectClicked();
-        
         m_target = newTarget;
         m_isOrbitMode = true;
 
@@ -112,6 +112,8 @@ public class CameraController : MonoBehaviour
             selectedObject = m_target.GetComponent<CelestialObject>();
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
+        
+        CustomEvents.ObjectClicked();
     }
 
     private void DeselectObject()

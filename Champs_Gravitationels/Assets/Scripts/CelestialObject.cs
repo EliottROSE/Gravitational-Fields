@@ -6,11 +6,12 @@ using System;
 
 public class CelestialObject : MonoBehaviour
 {
-    public string objectName = null;
-    [SerializeField] float mass = 0f;
-    [SerializeField] float speed = 0f;
-    [SerializeField] public Vec3 position = Vec3.zero;
-    //[SerializeField] String name;
+    public string objectName;
+    public Vec3 position = Vec3.zero;
+    
+    [SerializeField] private float mass = 0f;
+
+    [SerializeField] private float speed = 0f;
 
 
     [NonSerialized] public float kgMass;
@@ -28,10 +29,10 @@ public class CelestialObject : MonoBehaviour
         msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.MeterPerSecToKmPerSec;
 
         AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
+    }
 
-        //Debug.Log(name);
-        //Debug.Log("speed " + msSpeed);
-        //Debug.Log("pos " + AstronomicalPos);
-        //Debug.Log("mass " + kgMass);
+    private void LateUpdate()
+    {
+        transform.Rotate(new Vec3(0f, 0.1f, 0f));
     }
 }
