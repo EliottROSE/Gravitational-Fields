@@ -464,6 +464,106 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!1001 &1518638959
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 29.862873
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.979704
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -35.471905
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258144865580718892, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758895980226004203, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_Name
+      value: UI Planet info
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027978229344296339, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073064893741734130, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036725456094482437, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527106526908699729, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775045193127575781, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087384687917161855, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 6036725456094482437, guid: 92135af2471e13445b43c42bab63eed5, type: 3}
+    - {fileID: 9087384687917161855, guid: 92135af2471e13445b43c42bab63eed5, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 92135af2471e13445b43c42bab63eed5, type: 3}
 --- !u!1 &1526980365
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,3 +690,4 @@ SceneRoots:
   - {fileID: 767146211}
   - {fileID: 1526980367}
   - {fileID: 701832259}
+  - {fileID: 1518638959}
