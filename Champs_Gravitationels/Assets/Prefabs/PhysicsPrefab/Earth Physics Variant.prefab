@@ -81,4 +81,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 1
   speed: 29.78
-  position: {x: 0, y: 0, z: 10}
+  position: {x: 0, y: 0, z: 1}

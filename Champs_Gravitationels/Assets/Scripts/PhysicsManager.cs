@@ -11,7 +11,7 @@ public class PhysicManager : MonoBehaviour
         public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   
         public const float EarthMass = 5.927e24f; // kg
         public const float MeterPerSecToKmPerSec = 1000; // m.s-1
-        public const float AstronomicalDistance = 1.495978707e10f; // m
+        public const float AstronomicalDistance = 1.495978707e11f; // m
         public const float DeltaT = 36000f; // s
     }
     Dictionary<Vector3, float> originPointsData;
@@ -33,7 +33,7 @@ public class PhysicManager : MonoBehaviour
     {
         foreach (CelestialObject celestialObjectprefab in prefabs)
         {
-            CelestialObject celestialInstance = Instantiate(celestialObjectprefab, celestialObjectprefab.position, Quaternion.identity);
+            CelestialObject celestialInstance = Instantiate(celestialObjectprefab, celestialObjectprefab.position * 10f, Quaternion.identity);
 
             instantiatedObjects.Add(celestialInstance);
         }
@@ -71,7 +71,7 @@ public class PhysicManager : MonoBehaviour
             Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
             Debug.Log("New EnginePos : " + celestialObject.transform.position);
 
-            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance);
+            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance) * 10f;
 
 
             celestialObject.oldMsAccel = celestialObject.msAccel;
