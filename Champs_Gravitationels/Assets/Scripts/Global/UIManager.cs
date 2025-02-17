@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Global;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,9 +9,10 @@ namespace Global
     [System.Serializable]
     public enum UIState
     {
-        SHOWN = -1,
+        HIDDEN,
         CREATION,
-        INFORMATION
+        INFORMATION,
+        TIME_CONTROL
     }
 }
 
@@ -20,14 +22,15 @@ public class UIManager : MonoBehaviour
 
     public GameObject background;
 
-    private static UIManager instance;
+    private static UIManager _instance;
     [HideInInspector] public Camera cam;
-    private UIState state;
+    private UIState m_state;
 
     /*
      * All UI GameObjects
      */
     public List<UIPanel> panelList;
+    public List<UIPanel> enabledPanels;
 
     #endregion
 
@@ -38,23 +41,23 @@ public class UIManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if (!_instance)
                 Debug.LogError("There is no existing instance of UIManager!");
 
-            return instance;
+            return _instance;
         }
     }
 
     public UIState State
     {
-        get => state;
+        get => m_state;
 
         set
         {
-            if (state == value) return;
+            if (m_state == value) return;
 
-            state = value;
-            onUIStateUpdate.Invoke(state);
+            m_state = value;
+            onUIStateUpdate.Invoke(m_state);
         }
     }
 
@@ -72,13 +75,13 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (_instance != null)
         {
             Destroy(this);
             return;
         }
 
-        instance = this;
+        _instance = this;
         cam = Camera.main;
     }
 
@@ -95,6 +98,29 @@ public class UIManager : MonoBehaviour
                 panel.Enable();
             else
                 panel.Disable();
+        }
+    }
+    
+    public void EnablePanel(UIState panelState)
+    {
+        foreach (var panel in panelList)
+        {
+            if (panel.State != panelState) continue;
+            if (enabledPanels.Contains(panel)) continue;
+            
+            panel.Enable();
+            enabledPanels.Add(panel);
+        }
+    }
+    
+    public void DisablePanel(UIState panelState)
+    {
+        foreach (var panel in enabledPanels.ToList())
+        {
+            if (panel.State != panelState) continue;
+            
+            panel.Disable();
+            enabledPanels.Remove(panel);
         }
     }
 
