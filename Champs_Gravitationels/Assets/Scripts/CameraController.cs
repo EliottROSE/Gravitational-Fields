@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public CelestialObject selectedObject;
     Transform target; //Target of the camera
     float distance = 10.0f; //Initial distance
     float minDistance = 2.0f;
@@ -101,11 +102,16 @@ public class CameraController : MonoBehaviour
     {
         target = newTarget;
         isOrbitMode = true;
+        if(target.GetComponent<CelestialObject>() != null)
+        {
+            selectedObject = target.GetComponent<CelestialObject>();
+        }
     }
 
     void DeselectObject()
     {
         isOrbitMode = false;
         target = null;
+        selectedObject = null;
     }
 }
