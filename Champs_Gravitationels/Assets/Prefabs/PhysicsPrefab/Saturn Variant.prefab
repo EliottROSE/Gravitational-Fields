@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Saturn
   mass: 95.2
   speed: 9.69
   position: {x: 0, y: 0, z: 95.8}

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Mars
   mass: 0.107
   speed: 24.07
   position: {x: 0, y: 0, z: 15.2}

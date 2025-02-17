@@ -1,3 +1,4 @@
+using System;
 using Global;
 using TMPro;
 using UnityEngine;
@@ -37,16 +38,22 @@ namespace UI
 
         public override void Enable()
         {
+            UpdateInfo();
+            gameObject.SetActive(true);
             //UIManager.Instance.background.SetActive(true);
 
             EventSystem.current.SetSelectedGameObject(FirstButton);
-            UpdateInfo();
         }
 
         public override void Disable()
         {
             gameObject.SetActive(false);
             UIManager.Instance.background.SetActive(false);
+        }
+
+        private void Update()
+        {
+            UpdateInfo();
         }
 
         #endregion
@@ -59,15 +66,15 @@ namespace UI
             if (selectedObj == null)
                 return;
             
-            objectNameText.text = selectedObj.name;
-            xPosText.text = selectedObj.position.x.ToString();
-            yPosText.text = selectedObj.position.y.ToString();
-            zPosText.text = selectedObj.position.z.ToString();
-            xSpeedText.text = selectedObj.msSpeed.X + "m/s";
-            ySpeedText.text = selectedObj.msSpeed.Y + "m/s";
-            zSpeedText.text = selectedObj.msSpeed.Z + "m/s";
-            sizeText.text = selectedObj.gameObject.transform.localScale.ToString();
-            massText.text = selectedObj.kgMass.ToString();
+            objectNameText.SetText(selectedObj.objectName);
+            xPosText.SetText(selectedObj.position.x.ToString());
+            yPosText.SetText(selectedObj.position.y.ToString());
+            zPosText.SetText(selectedObj.position.z.ToString());
+            xSpeedText.SetText(selectedObj.msSpeed.X + "m/s");
+            ySpeedText.SetText(selectedObj.msSpeed.Y + "m/s");
+            zSpeedText.SetText(selectedObj.msSpeed.Z + "m/s");
+            sizeText.SetText(selectedObj.gameObject.transform.localScale.ToString());
+            massText.SetText(selectedObj.kgMass.ToString());
         }
 
         #endregion

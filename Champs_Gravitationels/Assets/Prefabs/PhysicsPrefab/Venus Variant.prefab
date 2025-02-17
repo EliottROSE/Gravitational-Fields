@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Venus
   mass: 0.815
   speed: 35.02
   position: {x: 0, y: 0, z: 7.2}

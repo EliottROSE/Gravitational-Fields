@@ -1,3 +1,4 @@
+using Global;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -105,6 +106,7 @@ public class CameraController : MonoBehaviour
         if(target.GetComponent<CelestialObject>() != null)
         {
             selectedObject = target.GetComponent<CelestialObject>();
+            UIManager.Instance.SwitchPanel(UIState.INFORMATION);
         }
     }
 

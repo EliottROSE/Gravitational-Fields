@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
@@ -8,6 +6,7 @@ using System;
 
 public class CelestialObject : MonoBehaviour
 {
+    public string objectName = null;
     [SerializeField] float mass = 0f;
     [SerializeField] float speed = 0f;
     [SerializeField] public Vec3 position = Vec3.zero;
