@@ -1,13 +1,19 @@
+using System.ComponentModel;
+using Global;
 using UnityEngine;
 
 public class UIPanel : MonoBehaviour
 {
     #region Parameters
-    public UIState State;
-    public GameObject firstButton;
+    
+    [ReadOnly(true)] public UIState State;
+    public GameObject FirstButton;
+    
     #endregion
 
+    
     #region Custom Methods
+    
     public virtual void Enable()
     {  
     }
@@ -15,5 +21,6 @@ public class UIPanel : MonoBehaviour
     public virtual void Disable()
     {
     }
+    
     #endregion
 }

@@ -1,18 +1,23 @@
 using System.Collections.Generic;
-
+using Global;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
-public enum UIState
+namespace Global
 {
-    SHOWN = -1,
-    HIDDEN
+    [System.Serializable]
+    public enum UIState
+    {
+        SHOWN = -1,
+        CREATION,
+        INFORMATION
+    }
 }
 
 public class UIManager : MonoBehaviour
 {
     #region Parameters
+
     public GameObject background;
 
     private static UIManager instance;
@@ -23,9 +28,12 @@ public class UIManager : MonoBehaviour
      * All UI GameObjects
      */
     public List<UIPanel> panelList;
+
     #endregion
 
+
     #region Getters/Setters
+
     public static UIManager Instance
     {
         get
@@ -44,18 +52,24 @@ public class UIManager : MonoBehaviour
         set
         {
             if (state == value) return;
-            
+
             state = value;
             onUIStateUpdate.Invoke(state);
         }
     }
+
     #endregion
+
 
     #region Event List
+
     [HideInInspector] public UnityEvent<UIState> onUIStateUpdate;
+
     #endregion
 
+
     #region Unity Callbacks
+
     private void Awake()
     {
         if (instance != null)
@@ -67,9 +81,12 @@ public class UIManager : MonoBehaviour
         instance = this;
         cam = Camera.main;
     }
+
     #endregion
 
+
     #region Custom Methods
+
     public void SwitchPanel(UIState newState)
     {
         foreach (var panel in panelList)
@@ -80,5 +97,6 @@ public class UIManager : MonoBehaviour
                 panel.Disable();
         }
     }
+
     #endregion
 }
