@@ -711,7 +711,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 0}
   cam: {fileID: 0}
-  panelList: []
+  panelList:
+  - {fileID: 717892974}
   onUIStateUpdate:
     m_PersistentCalls:
       m_Calls: []
@@ -902,6 +903,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Information
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758895980226004203, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3027978229344296339, guid: 92135af2471e13445b43c42bab63eed5,
         type: 3}
@@ -1165,6 +1171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a288c5c54bfd42e41a1eba027a3cf198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
 --- !u!114 &881286843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,10 +1996,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Planet info
       objectReference: {fileID: 0}
+    - target: {fileID: 1758895980226004203, guid: 92135af2471e13445b43c42bab63eed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3027978229344296339, guid: 92135af2471e13445b43c42bab63eed5,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4073064893741734130, guid: 92135af2471e13445b43c42bab63eed5,
         type: 3}
@@ -2007,7 +2019,7 @@ PrefabInstance:
     - target: {fileID: 8527106526908699729, guid: 92135af2471e13445b43c42bab63eed5,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8775045193127575781, guid: 92135af2471e13445b43c42bab63eed5,
         type: 3}
