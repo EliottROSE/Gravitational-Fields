@@ -3,7 +3,6 @@ using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
-using System.Drawing;
 
 public class PhysicManager : MonoBehaviour
 {
@@ -172,7 +171,7 @@ public class PhysicManager : MonoBehaviour
         Vector3 currentPosAstro = (currentPos * Constant.AstronomicalDistance);
         Vector3 resultPos = currentPosAstro;
 
-        Vector3 GravitationalField = (-TotalGravitionalField(currentPosAstro));
+        Vector3 GravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentPosAstro)));
 
         if (GravitationalField.Length() < 0.001f)
             return Vector3.Zero;

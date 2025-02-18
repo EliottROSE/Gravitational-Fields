@@ -82,7 +82,6 @@ public class CameraController : MonoBehaviour
         
         transform.LookAt(m_target);
         transform.position = position;
-        transform.LookAt(target);
 
         UpdateGravityFieldPos();
     }
@@ -148,7 +147,7 @@ public class CameraController : MonoBehaviour
         if(grid != null && selectedObject != null)
         {
             grid.transform.position = selectedObject.transform.position;
-            grid.transform.position += new Vector3(0, 0, 7f);
+            grid.transform.position += new Vector3(-20f, -18f, 5f);
         }
     }
 }

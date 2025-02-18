@@ -810,6 +810,57 @@ MonoBehaviour:
   onUIStateUpdate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &527022772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527022773}
+  - component: {fileID: 527022774}
+  m_Layer: 0
+  m_Name: GridVectorField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &527022773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527022772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.980724, y: -17.69365, z: 5.3699756}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &527022774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527022772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716e7229c1b6ba44db994dc43bad6a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityField: {fileID: 701832260}
+  density: 6
+  spacing: 3
+  objectMask:
+    serializedVersion: 2
+    m_Bits: 8
+  is2DMode: 1
 --- !u!1 &544401068
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1022,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a18e27814db0f8b4bad5d02064cee0f8, type: 3}
+--- !u!114 &701832260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7706773819502419326, guid: a18e27814db0f8b4bad5d02064cee0f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 701832259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce97d36e31d4e24093372f42ae309b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705052292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,6 +2078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a288c5c54bfd42e41a1eba027a3cf198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 527022772}
   selectedObject: {fileID: 0}
   distance: 10
   minDistance: 2
@@ -6294,3 +6358,4 @@ SceneRoots:
   - {fileID: 363146251}
   - {fileID: 1518638959}
   - {fileID: 258144865207825991}
+  - {fileID: 527022773}
