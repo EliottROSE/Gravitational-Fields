@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     private float m_yaw = 0.0f;
     private float m_pitch = 0.0f;
     private bool m_isOrbitMode = false;
-    private bool m_useStaticCamera = false;
+    [SerializeField] private bool m_useStaticCamera = false;
 
     // Start is called before the first frame update
     private void Start()
