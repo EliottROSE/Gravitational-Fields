@@ -1,33 +1,36 @@
+using Global;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     public CelestialObject selectedObject;
-    Transform target; //Target of the camera
-    float distance = 10.0f; //Initial distance
-    float minDistance = 2.0f;
-    float maxDistance = 50.0f;
-    float rotationSpeed = 100.0f;
-    float zoomSpeed = 5.0f;
-    float moveSpeed = 10f;
-    float lookSpeed = 2f;
+    [SerializeField] private float distance = 10.0f; //Initial distance
+    [SerializeField] private float minDistance = 2.0f;
+    [SerializeField] private float maxDistance = 50.0f;
+    [SerializeField] private float rotationSpeed = 100.0f;
+    [SerializeField] private float zoomSpeed = 5.0f;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float lookSpeed = 2f;
 
-    private bool isOrbitMode = false;
-    private float azimuth = 0.0f; //Longitude
-    private float elevation = 20.0f; //Colatitude
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
+    private Transform m_target; //Target of the camera
+    private Camera m_cam;
+    private float m_azimuth = 0.0f; //Longitude
+    private float m_elevation = 20.0f; //Colatitude
+    private float m_yaw = 0.0f;
+    private float m_pitch = 0.0f;
+    private bool m_isOrbitMode = false;
+    [SerializeField] private bool m_useStaticCamera = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        m_cam = Camera.main;
     }
 
     // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        if(isOrbitMode && target != null)
+        if (m_isOrbitMode && m_target)
         {
             OrbitMode();
         }
@@ -36,13 +39,12 @@ public class CameraController : MonoBehaviour
             FreeMode();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
+            Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit))
             {
-                if(hit.transform.CompareTag("TrackingObject"))
+                if (hit.transform.CompareTag("TrackingObject"))
                 {
                     SelectObject(hit.transform);
                 }
@@ -54,64 +56,73 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void OrbitMode()
+    private void OrbitMode()
     {
         //Rotation with directional arrows
-        azimuth += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        elevation += Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
-        elevation = Mathf.Clamp(elevation, -80f, 80f);
+        m_azimuth += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+        m_elevation += Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
+        m_elevation = Mathf.Clamp(m_elevation, -80f, 80f);
 
         //Zoom
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         distance -= scroll * zoomSpeed;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
-        Quaternion rotation = Quaternion.Euler(elevation, azimuth, 0);
-        Vector3 position = target.position - (rotation * Vector3.forward * distance);
+        Quaternion rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
+        Vector3 position = m_target.position - rotation * Vector3.forward * distance;
 
         //Apply position and orientation
-        transform.position = position;
-        transform.LookAt(target);
+        if (!m_useStaticCamera)
+            transform.position = position;
+        
+        transform.LookAt(m_target);
     }
 
-    void FreeMode()
+    private void FreeMode()
     {
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
-            yaw += Input.GetAxis("Mouse X") * lookSpeed;
-            pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
-            pitch = Mathf.Clamp(pitch, -90f, 90f);
+            m_yaw += Input.GetAxis("Mouse X") * lookSpeed;
+            m_pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
+            m_pitch = Mathf.Clamp(m_pitch, -90f, 90f);
         }
 
-        transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+        transform.rotation = Quaternion.Euler(m_pitch, m_yaw, 0);
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * (moveSpeed * Time.deltaTime);
         transform.position += transform.rotation * move;
 
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+            transform.position += Vector3.down * (moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+            transform.position += Vector3.up * (moveSpeed * Time.deltaTime);
         }
     }
 
-    void SelectObject(Transform newTarget)
+    private void SelectObject(Transform newTarget)
     {
-        target = newTarget;
-        isOrbitMode = true;
-        if(target.GetComponent<CelestialObject>() != null)
+        m_target = newTarget;
+        m_isOrbitMode = true;
+
+        if (m_target.GetComponent<CelestialObject>())
         {
-            selectedObject = target.GetComponent<CelestialObject>();
+            selectedObject = m_target.GetComponent<CelestialObject>();
+            UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
+        
+        CustomEvents.ObjectClicked();
     }
 
-    void DeselectObject()
+    private void DeselectObject()
     {
-        isOrbitMode = false;
-        target = null;
+        m_isOrbitMode = false;
+        m_target = null;
+        
+        UIManager.Instance.DisablePanel(UIState.INFORMATION);
+        
         selectedObject = null;
     }
 }

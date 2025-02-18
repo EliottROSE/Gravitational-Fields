@@ -7,7 +7,6 @@ public class UIPanel : MonoBehaviour
     #region Parameters
     
     [ReadOnly(true)] public UIState State;
-    public GameObject FirstButton;
     
     #endregion
 

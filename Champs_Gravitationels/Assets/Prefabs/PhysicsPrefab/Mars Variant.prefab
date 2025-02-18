@@ -64,6 +64,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 205528198418929460, guid: 1818e1a170ef94c3aacee2ba50057521,
+        type: 3}
+      propertyPath: m_Size
+      value: 2.000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 205528198418929460, guid: 1818e1a170ef94c3aacee2ba50057521,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205528198418929460, guid: 1818e1a170ef94c3aacee2ba50057521,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.x
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 205528198418929460, guid: 1818e1a170ef94c3aacee2ba50057521,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.z
+      value: 0.00000059604645
+      objectReference: {fileID: 0}
     - target: {fileID: 6789804957547789107, guid: 1818e1a170ef94c3aacee2ba50057521,
         type: 3}
       propertyPath: m_Center.z
@@ -96,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Mars
+  position: {x: 0, y: 0, z: 15.2}
   mass: 0.107
   speed: 24.07
-  position: {x: 0, y: 0, z: 1.52}

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class GravityFieldVisualizer : MonoBehaviour
     public float spacing = 5f; //Spacing between points
     public float arrowScale = 1f; //Maximum arrow scale
     public LayerMask objectMask; //To avoid celestials objects
-    private List<GameObject> arrows = new List<GameObject>();
+    private List<GameObject> arrows = new();
 
     private void Start()
     {
@@ -49,7 +48,7 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < arrows.Count; i++)
+        for (int i = 0; i < arrows.Count; i++)
         {
             GameObject arrow = arrows[i];
             Vector3 position = arrow.transform.position;

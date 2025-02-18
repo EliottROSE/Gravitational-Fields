@@ -23,7 +23,7 @@ public class GravityField : MonoBehaviour
             Vector3 direction = body.position - position;
             float distance = direction.magnitude;
 
-            if(distance > 0.5f)
+            if (distance > 0.5f)
             {
                 float forceMagnitude = gravitationalConstant * body.kgMass / (distance * distance);
                 totalGravity += direction.normalized * forceMagnitude;

@@ -64,6 +64,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23492463847442280, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.062498655
+      objectReference: {fileID: 0}
+    - target: {fileID: 199080007387293916, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.x
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.z
+      value: 0.00000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.031249313
+      objectReference: {fileID: 0}
+    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.008579016
+      objectReference: {fileID: 0}
     - target: {fileID: 4182879556056083133, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
         type: 3}
       propertyPath: m_Center.z
@@ -96,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Venus
+  position: {x: 0, y: 0, z: 7.2}
   mass: 0.815
   speed: 35.02
-  position: {x: 0, y: 0, z: 0.72}
