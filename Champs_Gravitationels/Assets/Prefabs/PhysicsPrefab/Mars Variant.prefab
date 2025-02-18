@@ -117,6 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Mars
-  position: {x: 0, y: 0, z: 15.2}
+  position: {x: 0, y: 0, z: 1.52}
   mass: 0.107
   speed: 24.07

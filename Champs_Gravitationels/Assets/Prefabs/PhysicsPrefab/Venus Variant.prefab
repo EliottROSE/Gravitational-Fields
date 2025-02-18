@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Venus
-  position: {x: 0, y: 0, z: 7.2}
+  position: {x: 0, y: 0, z: 0.72}
   mass: 0.815
   speed: 35.02

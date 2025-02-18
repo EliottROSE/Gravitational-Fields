@@ -112,6 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Jupiter
-  position: {x: 0, y: 0, z: 52}
+  position: {x: 0, y: 0, z: 5.2}
   mass: 317.8
   speed: 13.07
