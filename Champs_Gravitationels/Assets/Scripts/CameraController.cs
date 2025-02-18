@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject grid;
     public CelestialObject selectedObject;
     Transform target; //Target of the camera
     float distance = 10.0f; //Initial distance
@@ -23,7 +24,10 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if(grid != null)
+        {
+            grid.SetActive(false);//Grille inactive au start
+        }
     }
 
     // Update is called once per frame
@@ -74,6 +78,8 @@ public class CameraController : MonoBehaviour
         //Apply position and orientation
         transform.position = position;
         transform.LookAt(target);
+
+        UpdateGravityFieldPos();
     }
 
     void FreeMode()
@@ -108,6 +114,11 @@ public class CameraController : MonoBehaviour
         {
             selectedObject = target.GetComponent<CelestialObject>();
         }
+        
+        if(grid != null)
+        {
+            grid.SetActive(true);
+        }
     }
 
     void DeselectObject()
@@ -115,5 +126,18 @@ public class CameraController : MonoBehaviour
         isOrbitMode = false;
         target = null;
         selectedObject = null;
+        if (grid != null)
+        {
+            grid.SetActive(false);
+        }
+    }
+
+    void UpdateGravityFieldPos()
+    {
+        if(grid != null && selectedObject != null)
+        {
+            grid.transform.position = selectedObject.transform.position;
+            grid.transform.position += new Vector3(0, 0, 7f);
+        }
     }
 }
