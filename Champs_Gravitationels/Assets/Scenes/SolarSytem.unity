@@ -188,7 +188,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362088293
   m_fontColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2736,7 +2736,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3595,7 +3595,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4127,7 +4127,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4416,7 +4416,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4571,7 +4571,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2152549709
+    rgba: 3362154086
   m_fontColor: {r: 0.4, g: 0.4, b: 0.4, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4705,7 +4705,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5182,7 +5182,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717892974}
+        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
+        m_MethodName: GetXPos
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -5323,7 +5335,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4289769648
   m_fontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5474,7 +5486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &2008018184440689958
 CanvasRenderer:
   m_ObjectHideFlags: 0

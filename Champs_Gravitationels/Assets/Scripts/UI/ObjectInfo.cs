@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Globalization;
 using Global;
 using TMPro;
 using UnityEngine;
+using Vector3 = System.Numerics.Vector3;
 
 public class ObjectInfo : UIPanel
 {
@@ -34,6 +36,7 @@ public class ObjectInfo : UIPanel
 
     private CameraController m_camController;
     private CelestialObject m_selectedObj;
+    private PhysicManager m_physicManager;
 
     #endregion
 
@@ -52,7 +55,7 @@ public class ObjectInfo : UIPanel
 
     public override void Enable()
     {
-        
+        m_physicManager = FindObjectOfType<PhysicManager>();
         CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
         
         m_xPosPlaceholder = xPosInput.placeholder as TextMeshProUGUI;
@@ -107,14 +110,32 @@ public class ObjectInfo : UIPanel
     private void UpdateData()
     {
         objectNameText.SetText(m_selectedObj.objectName);
-        m_xPosPlaceholder.SetText(m_selectedObj.position.x.ToString(CultureInfo.InvariantCulture));
-        m_yPosPlaceholder.SetText(m_selectedObj.position.y.ToString(CultureInfo.InvariantCulture));
-        m_zPosPlaceholder.SetText(m_selectedObj.position.z.ToString(CultureInfo.InvariantCulture));
-        m_xSpeedPlaceholder.SetText(m_selectedObj.msSpeed.X + " m/s");
-        m_ySpeedPlaceholder.SetText(m_selectedObj.msSpeed.Y + " m/s");
-        m_zSpeedPlaceholder.SetText(m_selectedObj.msSpeed.Z + " m/s");
+        m_xPosPlaceholder.SetText(m_selectedObj.transform.position.x / 10f + " ua");
+        m_yPosPlaceholder.SetText(m_selectedObj.transform.position.y / 10f + " ua");
+        m_zPosPlaceholder.SetText(m_selectedObj.transform.position.z / 10f + " ua");
+        m_xSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.X + " km/s");
+        m_ySpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.Y + " km/s");
+        m_zSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.Z + " km/s");
         m_sizePlaceholder.SetText(m_selectedObj.gameObject.transform.localScale.ToString());
-        m_massPlaceholder.SetText(m_selectedObj.kgMass.ToString(CultureInfo.InvariantCulture));
+        m_massPlaceholder.SetText(m_selectedObj.mass.ToString(CultureInfo.InvariantCulture));
+    }
+    
+    public void GetXPos(string input)
+    {
+        float inputVal = float.Parse(input, CultureInfo.InvariantCulture);
+        Vector3 newPos = new Vector3(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
+        Vector3 newAstronomicalPos = newPos * PhysicManager.Constant.AstronomicalDistance;
+
+        Debug.Log("New Position : " + newPos);
+        Debug.Log("New Astro Position : " + newAstronomicalPos);
+        
+        Debug.Log("Initial Transform Position : " + m_selectedObj.transform.position);
+        
+        //m_physicManager.NewPosition(newPos, m_selectedObj.msSpeed, m_selectedObj.msAccel);
+        m_selectedObj.AstronomicalPos = newAstronomicalPos;
+        Debug.Log("Final Position : " + m_selectedObj.AstronomicalPos);
+        
+        Debug.Log("Final Transform Position : " + m_selectedObj.transform.position);
     }
 
     private void UpdateSelectedObject()
