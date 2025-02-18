@@ -3,7 +3,7 @@ using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
-using Unity.VisualScripting;
+using System.Drawing;
 
 public class PhysicManager : MonoBehaviour
 {
@@ -91,9 +91,19 @@ public class PhysicManager : MonoBehaviour
 
     public Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
     {
-        Vector3 distance = origin - target; // vector Rij
+        //Vector3 distance = origin - target; // vector Rij
 
-        Vector3 result = Constant.Gravity * (distance / Mathf.Pow(distance.Length(), 3)) * originMass;
+        //Vector3 result = Constant.Gravity * (distance / Mathf.Pow(distance.Length(), 3)) * originMass;
+
+        //return result;
+        Vector3 distance = origin - target; // Vecteur Rij en 3D
+
+        // Assurez-vous de ne pas avoir de division par z�ro, m�me avec de petites distances
+        float distSquared = distance.LengthSquared() + 0.0001f; // Offset pour �viter NaN
+        float distCubed = Mathf.Sqrt(distSquared) * distSquared; // Calcul du cube de la distance
+
+        // Calcul de la force gravitationnelle en prenant en compte la distance 3D
+        Vector3 result = Constant.Gravity * (distance / distCubed) * originMass;
 
         return result;
     }
@@ -106,16 +116,37 @@ public class PhysicManager : MonoBehaviour
 
 
     /*------------------------------------------Total Gravitational Field--------------------------------*/
-    public Vector3 TotalGravitionalField(Vector3 target)
+    public Vec3 TotalGravitionalField(Vec3 target)
     {
-        Vector3 sum = Vector3.Zero;
+        //Vector3 sum = Vector3.Zero;
+        //foreach (CelestialObject celestialObject in instantiatedObjects)
+        //{
+        //    Vector3 origin = celestialObject.AstronomicalPos;
+        //    float originMass = celestialObject.kgMass;
+        //    sum += Acceleration(origin, target, originMass);
+        //}
+        //return sum;
+        Vec3 totalGravity = Vec3.zero;
+
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            Vector3 origin = celestialObject.AstronomicalPos;
-            float originMass = celestialObject.kgMass;
-            sum += Acceleration(origin, target, originMass);
+            if(celestialObject.name == "Sun Physic Variant(Clone)")
+            {
+                continue;
+            }
+
+            float mass = celestialObject.GetComponent<CelestialObject>().kgMass;
+            Vec3 direction = celestialObject.transform.position - target;
+            float distanceSqr = direction.magnitude;
+
+            if (distanceSqr > 0.001f * 0.001f) // �vite les divisions par z�ro
+            {
+                float forceMagnitude = Constant.Gravity * mass / distanceSqr;
+                totalGravity += direction.normalized * forceMagnitude;
+            }
         }
-        return sum;
+
+        return totalGravity;
     }
 
 
