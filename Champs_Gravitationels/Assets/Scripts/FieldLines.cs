@@ -10,9 +10,10 @@ public class FieldLines : MonoBehaviour
     PhysicManager physicManager;
 
     LineRenderer lineRenderer;
-    public int linesCount = 50;
-
-    public Vector3 currentPos;
+    public int linesCount = 150;
+    public float step = 0.01f;
+    public Vector3 startPos;
+    Vec3 value;
 
     void Start()
     {
@@ -25,7 +26,14 @@ public class FieldLines : MonoBehaviour
             Debug.LogError("Cannot find line renderer on celestial object" + this.name);
 
         lineRenderer.positionCount = linesCount;
-        currentPos = PhysicManager.VectorToSystem(transform.position);
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.green;
+        startPos = PhysicManager.VectorToSystem(transform.position + UnityEngine.Random.onUnitSphere * transform.localScale.x);
+        value = UnityEngine.Random.onUnitSphere;
+
 
     }
 
@@ -36,28 +44,19 @@ public class FieldLines : MonoBehaviour
 
     public void DrawFieldLines()
     {
-        //lineRenderer.positionCount = 2;
+        startPos = PhysicManager.VectorToSystem(transform.position + value * transform.localScale.x);
+        List<Vec3> positions = new List<Vec3>();
 
-        //lineRenderer.SetPosition(0, transform.position);
-        //Vec3 t = transform.position + new Vec3(0f, 0f, 50f);
-        //lineRenderer.SetPosition(0, t);
-
-        //for (int i = 0; i < lineRenderer.positionCount; ++i)
-        //{
-        //    Vector3 newPos = physicManager.LineFieldNextPos(currentPos * PhysicManager.Constant.AstronomicalDistance, 1f);
-        //    currentPos = newPos / PhysicManager.Constant.AstronomicalDistance;
-        //    lineRenderer.SetPosition(i, PhysicManager.VectorToEngine(newPos / PhysicManager.Constant.AstronomicalDistance));
-        //}
-        //currentPos = PhysicManager.VectorToSystem(transform.position);
-        Debug.Log("Planet : " + transform.position);
+        Vector3 currentPos = startPos;
         for (int i = 0; i < lineRenderer.positionCount; ++i)
         {
-            Vector3 newPos = physicManager.LineFieldNextPos(currentPos, 10f);
-            Vector3 unityRef = (newPos / PhysicManager.Constant.AstronomicalDistance);
-            Debug.Log("pos : " + unityRef);
-            lineRenderer.SetPosition(i, PhysicManager.VectorToEngine(unityRef * new Vector3(0f, 0, 50f)/* * 10f*/));
-            currentPos = unityRef;
+            positions.Add(PhysicManager.VectorToEngine(currentPos));
+
+            Vector3 newPos = (physicManager.LineFieldNextPos(currentPos /10f, step) / PhysicManager.Constant.AstronomicalDistance) * 10f;
+            currentPos = newPos;
+            
+            positions.Add(PhysicManager.VectorToEngine(newPos));
         }
-        currentPos = PhysicManager.VectorToSystem(transform.position);
+        lineRenderer.SetPositions(positions.ToArray());
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
+using Unity.VisualScripting;
 
 public class PhysicManager : MonoBehaviour
 {
@@ -137,11 +138,15 @@ public class PhysicManager : MonoBehaviour
     /*------------------------------------------Line field------------------------------------------*/
     public Vector3 LineFieldNextPos(Vector3 currentPos, float step)
     {
-        Vector3 currentPosAstro = currentPos * PhysicManager.Constant.AstronomicalDistance;
+        Vector3 currentPosAstro = (currentPos * Constant.AstronomicalDistance);
         Vector3 resultPos = currentPosAstro;
 
-        Vector3 GravitationalField = (TotalGravitionalField(currentPosAstro)) /*/ TotalGravitionalField(currentPosAstro).Length()) * step*/;
-        resultPos += GravitationalField * step;
+        Vector3 GravitationalField = (-TotalGravitionalField(currentPosAstro));
+
+        if (GravitationalField.Length() < 0.001f)
+            return Vector3.Zero;
+
+        resultPos += (GravitationalField / GravitationalField.Length()) * (step * Constant.AstronomicalDistance);
 
         return resultPos; /* In astronomical reference */
     }
