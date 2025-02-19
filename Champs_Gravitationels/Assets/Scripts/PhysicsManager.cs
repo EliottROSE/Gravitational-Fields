@@ -117,14 +117,6 @@ public class PhysicManager : MonoBehaviour
     /*------------------------------------------Total Gravitational Field--------------------------------*/
     public Vec3 TotalGravitionalField(Vec3 target)
     {
-        //Vector3 sum = Vector3.Zero;
-        //foreach (CelestialObject celestialObject in instantiatedObjects)
-        //{
-        //    Vector3 origin = celestialObject.AstronomicalPos;
-        //    float originMass = celestialObject.kgMass;
-        //    sum += Acceleration(origin, target, originMass);
-        //}
-        //return sum;
         Vec3 totalGravity = Vec3.zero;
 
         foreach (CelestialObject celestialObject in instantiatedObjects)

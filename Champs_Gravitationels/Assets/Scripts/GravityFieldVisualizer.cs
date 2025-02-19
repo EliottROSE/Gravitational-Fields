@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class GravityFieldVisualizer : MonoBehaviour
 {
     public PhysicManager gravityField;
+    public CameraController cameraC;
     //public GravityField gField;
     public int density = 10; //Number of point per axis
     public float spacing = 5f; //Spacing between points
@@ -16,16 +17,16 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     private void Start()
     {
-        GenerateGrid();
+
     }
 
     void GenerateGrid()
     {
         if (is2DMode == true)
         {
-            for (int x = -density / 2; x <= density / 2; x++)
+            for (float x = cameraC.selectedObject.transform.position.x - density / 2; x <= cameraC.selectedObject.transform.position.x + density / 2; x++)
             {
-                for (int z = -density / 2; z <= density / 2; z++)
+                for (float z = cameraC.selectedObject.transform.position.z - density / 2; z <= cameraC.selectedObject.transform.position.z + density / 2; z++)
                 {
                     Vector3 position = new Vector3(x, 0, z) * spacing;
 
@@ -36,27 +37,20 @@ public class GravityFieldVisualizer : MonoBehaviour
                     }
 
                     //Create an arrow
-                    GameObject arrow = new GameObject("Arrow");
-                    LineRenderer line = arrow.AddComponent<LineRenderer>();
-                    line.startWidth = 0.1f;
-                    line.endWidth = 0.02f;
-                    line.positionCount = 2;
-
-                    arrow.transform.position = position;
-                    arrow.transform.parent = transform;
+                    LineRenderer line = CreateArrow(position);
                     arrows.Add(line);
                 }
             }
         }
         else
         {
-            for (int x = -density / 2; x <= density / 2; x++)
+            for (float x = cameraC.selectedObject.transform.position.x - density / 2; x <= cameraC.selectedObject.transform.position.x + density / 2; x++)
             {
-                for (int y = -density / 2; y <= density / 2; y++)
+                for (float y = cameraC.selectedObject.transform.position.y - density / 2; y <= cameraC.selectedObject.transform.position.y + density / 2; y++)
                 {
-                    for (int z = -density / 2; z <= density / 2; z++)
+                    for (float z = cameraC.selectedObject.transform.position.z - density / 2; z <= cameraC.selectedObject.transform.position.z + density / 2; z++)
                     {
-                        Vector3 position = new Vector3(x , y , z ) * spacing;
+                        Vector3 position = new Vector3(x , y , z) * spacing;
 
                         //Check if a celestial body is near
                         if (Physics.CheckSphere(position, spacing / 2, objectMask))
@@ -65,14 +59,7 @@ public class GravityFieldVisualizer : MonoBehaviour
                         }
 
                         //Create an arrow
-                        GameObject arrow = new GameObject("Arrow");
-                        LineRenderer line = arrow.AddComponent<LineRenderer>();
-                        line.startWidth = 0.1f;
-                        line.endWidth = 0.02f;
-                        line.positionCount = 2;
-
-                        arrow.transform.position = position;
-                        arrow.transform.parent = transform;
+                        LineRenderer line = CreateArrow(position);
                         arrows.Add(line);
                     }
                 }
@@ -80,8 +67,46 @@ public class GravityFieldVisualizer : MonoBehaviour
         }
     }
 
+    LineRenderer CreateArrow(Vector3 position)
+    {
+        GameObject arrow = new GameObject("Arrow");
+        LineRenderer line = arrow.AddComponent<LineRenderer>();
+        line.startWidth = 0.1f;
+        line.endWidth = 0.02f;
+        line.positionCount = 2;
+
+        arrow.transform.position = position;
+        arrow.transform.parent = transform;
+
+        return line;
+    }
+
+    void ClearGrid()
+    {
+        foreach(LineRenderer arrow in arrows)
+        {
+            Destroy(arrow.gameObject);
+        }
+        arrows.Clear();
+    }
+
     void LateUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            if(is2DMode == true)
+            {
+                is2DMode = false;
+                ClearGrid();
+                GenerateGrid();
+            }
+            else
+            {
+                is2DMode = true;
+                ClearGrid();
+                GenerateGrid();
+            }
+        }
         foreach (LineRenderer arrow in arrows)
         {
             Vector3 position = arrow.transform.position;

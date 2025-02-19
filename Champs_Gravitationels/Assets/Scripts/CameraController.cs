@@ -147,7 +147,6 @@ public class CameraController : MonoBehaviour
         if(grid != null && selectedObject != null)
         {
             grid.transform.position = selectedObject.transform.position;
-            grid.transform.position += new Vector3(-20f, -18f, 5f);
         }
     }
 }
