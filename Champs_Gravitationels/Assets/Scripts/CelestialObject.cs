@@ -32,7 +32,6 @@ public class CelestialObject : MonoBehaviour
     private void LateUpdate()
     {
         transform.Rotate(new Vec3(0f, 0.1f, 0f));
-        //UpdatedAstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
         kmsSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.MeterPerSecToKmPerSec / 1000f;
     }
 }
