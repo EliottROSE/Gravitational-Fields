@@ -70,7 +70,7 @@ public class FieldLines : MonoBehaviour
             {
                 positions.Add(PhysicManager.VectorToEngine(currentPos));
 
-                Vector3 newPos = (physicManager.LineFieldNextPos(currentPos / 10f, step) / PhysicManager.Constant.AstronomicalDistance) * 10f;
+                Vector3 newPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) / PhysicManager.Constant.AstronomicalDistance * 10f;
                 currentPos = newPos;
 
                 positions.Add(PhysicManager.VectorToEngine(newPos));

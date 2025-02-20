@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class PhysicManager : MonoBehaviour
     [SerializeField] public List<CelestialObject> prefabs;
 
     public List<CelestialObject> instantiatedObjects;
+
+    public bool bIgnoreSun = true;
 
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
@@ -121,7 +124,7 @@ public class PhysicManager : MonoBehaviour
 
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            if(celestialObject.name == "Sun Physic Variant(Clone)")
+            if (bIgnoreSun && celestialObject.objectName.Equals("Sun", StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
