@@ -34,10 +34,10 @@ public class GravityFieldVisualizer : MonoBehaviour
                     Vector3 position = new Vector3(x, 0, z);
 
                     //Check if a celestial body is near
-                    if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
-                    {
-                        continue;
-                    }
+                    //if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
+                    //{
+                    //    continue;
+                    //}
 
                     //Create an arrow
                     LineRenderer line = CreateArrow(position);
@@ -79,7 +79,7 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         GameObject arrow = new GameObject("Arrow");
         LineRenderer line = arrow.AddComponent<LineRenderer>();
-        line.startWidth = 0.2f;
+        line.startWidth = 0.1f;
         line.endWidth = 0.02f;
         line.positionCount = 2;
 

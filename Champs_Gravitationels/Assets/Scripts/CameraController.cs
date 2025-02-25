@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
     public GameObject grid;
     public CelestialObject selectedObject;
     [SerializeField] private float distance = 10.0f; //Initial distance
-    [SerializeField] private float minDistance = 2.0f;
+    [SerializeField] private float minDistance = 0.1f;
     [SerializeField] private float maxDistance = 50.0f;
     [SerializeField] private float rotationSpeed = 100.0f;
     [SerializeField] private float zoomSpeed = 5.0f;
