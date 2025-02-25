@@ -7,9 +7,8 @@ public class GravityFieldVisualizer : MonoBehaviour
 {
     public PhysicManager gravityField;
     public CameraController cameraC;
-    //public GravityField gField;
     public int density = 10; //Number of point per axis
-    public float spacing = 5f; //Spacing between points
+    public float gridSize = 5f; //Size of the grid
     public LayerMask objectMask; //To avoid celestials objects
     private List<LineRenderer> arrows = new List<LineRenderer>();
 
@@ -24,14 +23,18 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         if (is2DMode == true)
         {
-            for (float x = cameraC.selectedObject.transform.position.x - density / 2; x <= cameraC.selectedObject.transform.position.x + density / 2; x++)
+            float spacing = gridSize / (density - 1);
+            Vector3 center = cameraC.selectedObject.transform.position;
+            for (float i = 0; i < density; i++)
             {
-                for (float z = cameraC.selectedObject.transform.position.z - density / 2; z <= cameraC.selectedObject.transform.position.z + density / 2; z++)
+                for (float k = 0; k < density; k++)
                 {
-                    Vector3 position = new Vector3(x, 0, z) * spacing;
+                    float x = center.x - gridSize / 2 + i * spacing;
+                    float z = center.z - gridSize / 2 + k * spacing;
+                    Vector3 position = new Vector3(x, 0, z);
 
                     //Check if a celestial body is near
-                    if (Physics.CheckSphere(position, spacing / 2, objectMask))
+                    if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
                     {
                         continue;
                     }
@@ -44,16 +47,21 @@ public class GravityFieldVisualizer : MonoBehaviour
         }
         else
         {
-            for (float x = cameraC.selectedObject.transform.position.x - density / 2; x <= cameraC.selectedObject.transform.position.x + density / 2; x++)
+            float spacing = gridSize / (density - 1);
+            Vector3 center = cameraC.selectedObject.transform.position;
+            for (float i = 0; i < density; i++)
             {
-                for (float y = cameraC.selectedObject.transform.position.y - density / 2; y <= cameraC.selectedObject.transform.position.y + density / 2; y++)
+                for (float j = 0; j < density; j++)
                 {
-                    for (float z = cameraC.selectedObject.transform.position.z - density / 2; z <= cameraC.selectedObject.transform.position.z + density / 2; z++)
+                    for (float k = 0; k < density; k++)
                     {
-                        Vector3 position = new Vector3(x , y , z) * spacing;
+                        float x = center.x - gridSize / 2 + i * spacing;
+                        float y = center.y - gridSize / 2 + j * spacing;
+                        float z = center.z - gridSize / 2 + k * spacing;
+                        Vector3 position = new Vector3(x , y , z);
 
                         //Check if a celestial body is near
-                        if (Physics.CheckSphere(position, spacing / 2, objectMask))
+                        if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
                         {
                             continue;
                         }
@@ -71,7 +79,7 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         GameObject arrow = new GameObject("Arrow");
         LineRenderer line = arrow.AddComponent<LineRenderer>();
-        line.startWidth = 0.1f;
+        line.startWidth = 0.2f;
         line.endWidth = 0.02f;
         line.positionCount = 2;
 

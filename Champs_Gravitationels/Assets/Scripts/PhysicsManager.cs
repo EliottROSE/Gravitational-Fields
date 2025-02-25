@@ -121,7 +121,7 @@ public class PhysicManager : MonoBehaviour
 
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            if(celestialObject.name == "Sun Physic Variant(Clone)")
+            if(celestialObject.name == "Sun Physic Variant(Clone)" || celestialObject.name == "Jupiter Variant(Clone)" || celestialObject.name == "Sun Saturn Variant(Clone)")
             {
                 continue;
             }

@@ -53,6 +53,10 @@ public class CameraController : MonoBehaviour
                 {
                     SelectObject(hit.transform);
                 }
+                else if (hit.transform.CompareTag("UI"))
+                {
+
+                }
             }
             else
             {
@@ -64,7 +68,7 @@ public class CameraController : MonoBehaviour
     private void OrbitMode()
     {
         //Rotation with directional arrows
-        m_azimuth += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+        m_azimuth -= Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
         m_elevation += Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
         m_elevation = Mathf.Clamp(m_elevation, -80f, 80f);
 

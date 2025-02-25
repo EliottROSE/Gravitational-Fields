@@ -5531,7 +5531,7 @@ GameObject:
   - component: {fileID: 717892974}
   m_Layer: 0
   m_Name: Information
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5635,6 +5635,21 @@ PrefabInstance:
       propertyPath: cameraC
       value: 
       objectReference: {fileID: 881286842}
+    - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
+        type: 3}
+      propertyPath: density
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
+        type: 3}
+      propertyPath: spacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
+        type: 3}
+      propertyPath: gridSize
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
         type: 3}
       propertyPath: gravityField
