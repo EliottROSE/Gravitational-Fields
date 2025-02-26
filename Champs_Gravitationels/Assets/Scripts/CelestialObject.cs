@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
 
 public class CelestialObject : MonoBehaviour
 {
     public string objectName;
-    public Vec3 position = Vec3.zero;
+    [FormerlySerializedAs("position")] public Vec3 originalPosition = Vec3.zero;
     [SerializeField] public Vec3 kmsSpeed = Vec3.zero;
 
     public float mass;
@@ -25,7 +26,7 @@ public class CelestialObject : MonoBehaviour
         m_Speed = PhysicManager.VectorToSystem(kmsSpeed);
         kgMass = mass * PhysicManager.Constant.EarthMass;
         msSpeed = m_Speed * PhysicManager.Constant.KmPerSecToMeterPerSec;
-        AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
+        AstronomicalPos = PhysicManager.VectorToSystem(originalPosition * PhysicManager.Constant.AstronomicalDistance);
     }
 
     private void FixedUpdate()

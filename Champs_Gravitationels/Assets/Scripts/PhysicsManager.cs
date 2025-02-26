@@ -16,7 +16,8 @@ public class PhysicManager : MonoBehaviour
     {
         foreach (CelestialObject celestialObjectPrefab in prefabs)
         {
-            CelestialObject celestialInstance = Instantiate(celestialObjectPrefab, celestialObjectPrefab.position * 10f,
+            CelestialObject celestialInstance = Instantiate(celestialObjectPrefab,
+                celestialObjectPrefab.originalPosition,
                 Quaternion.identity);
 
             instantiatedObjects.Add(celestialInstance);
