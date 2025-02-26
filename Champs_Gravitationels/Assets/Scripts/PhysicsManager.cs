@@ -40,7 +40,7 @@ public class PhysicManager : MonoBehaviour
             //Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
             //Debug.Log("New EnginePos : " + celestialObject.transform.position);
 
-            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance) * 10f;
+            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance);
 
 
             celestialObject.oldMsAccel = celestialObject.msAccel;
@@ -163,7 +163,7 @@ public class PhysicManager : MonoBehaviour
             return Vector3.Zero;
 
         currentAstronomicalPos +=
-            step * Constant.AstronomicalDistance * gravitationalField / gravitationalField.Length();
+            step * Constant.AstronomicalDistance * (gravitationalField / gravitationalField.Length());
 
         return currentAstronomicalPos; /* In astronomical reference */
     }
