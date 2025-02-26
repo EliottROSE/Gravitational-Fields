@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class PhysicManager : MonoBehaviour
     [SerializeField] public List<CelestialObject> prefabs;
 
     public List<CelestialObject> instantiatedObjects;
+
+    public bool bIgnoreSun = true;
 
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
@@ -121,16 +124,14 @@ public class PhysicManager : MonoBehaviour
 
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            if(celestialObject.name == "Sun Physic Variant(Clone)")
-            {
+            if (bIgnoreSun && celestialObject.objectName.Equals("Sun", StringComparison.OrdinalIgnoreCase))
                 continue;
-            }
 
-            float mass = celestialObject.GetComponent<CelestialObject>().kgMass;
+            float mass = celestialObject.kgMass;
             Vec3 direction = celestialObject.transform.position - target;
             float distanceSqr = direction.magnitude;
 
-            if (distanceSqr > 0.001f * 0.001f) // �vite les divisions par z�ro
+            if (distanceSqr > 0.001f) // Evite les divisions par zero
             {
                 float forceMagnitude = Constant.Gravity * mass / distanceSqr;
                 totalGravity += direction.normalized * forceMagnitude;
@@ -160,16 +161,15 @@ public class PhysicManager : MonoBehaviour
     /*------------------------------------------Line field------------------------------------------*/
     public Vector3 LineFieldNextPos(Vector3 currentPos, float step)
     {
-        Vector3 currentPosAstro = (currentPos * Constant.AstronomicalDistance);
-        Vector3 resultPos = currentPosAstro;
+        Vector3 currentPosAstro = currentPos * Constant.AstronomicalDistance;
 
-        Vector3 GravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentPosAstro)));
+        Vector3 gravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentPosAstro)));
 
-        if (GravitationalField.Length() < 0.001f)
+        if (gravitationalField.Length() < 0.001f)
             return Vector3.Zero;
 
-        resultPos += (GravitationalField / GravitationalField.Length()) * (step * Constant.AstronomicalDistance);
+        currentPosAstro += step * Constant.AstronomicalDistance * gravitationalField / gravitationalField.Length();
 
-        return resultPos; /* In astronomical reference */
+        return currentPosAstro; /* In astronomical reference */
     }
 }
