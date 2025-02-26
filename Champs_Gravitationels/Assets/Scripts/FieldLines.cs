@@ -11,7 +11,7 @@ public class FieldLines : MonoBehaviour
     PhysicManager physicManager;
 
     List<LineRenderer> lineRenderers;
-    List<Vector3> startPositions;
+    List<Vec3> startPositions;
     List<Vec3> spherePoints;
 
     public int pointsCount = 150;
@@ -25,7 +25,7 @@ public class FieldLines : MonoBehaviour
             Debug.LogError("Cannot find physic manager on celestial object" + this.name);
 
         lineRenderers = new List<LineRenderer>();
-        startPositions = new List<Vector3>();
+        startPositions = new List<Vec3>();
         spherePoints = new List<Vec3>();
 
         for (int i = 0; i < linesCount; ++i)
@@ -49,7 +49,7 @@ public class FieldLines : MonoBehaviour
 
             lineRenderers.Add(lineRenderer);
 
-            startPositions.Add(PhysicManager.VectorToSystem(transform.position + UnityEngine.Random.onUnitSphere * transform.localScale.x));
+            startPositions.Add(transform.position + UnityEngine.Random.onUnitSphere * transform.localScale.x);
             spherePoints.Add(UnityEngine.Random.onUnitSphere);
         }
     }
@@ -61,19 +61,37 @@ public class FieldLines : MonoBehaviour
 
     public void DrawFieldLines()
     {
+        //Vector3 position = arrow.transform.position;
+        //Vector3 gravity = gravityField.TotalGravitionalField(position);
+
+        //if (gravity.magnitude > 0.0001f)
+        //{
+        //    Vector3 normalizedGravity = gravity.normalized;
+        //    float length = Mathf.Min(gravity.magnitude, Mathf.Sqrt(3));
+
+        //    if (is2DMode)
+        //    {
+        //        normalizedGravity.y = 0;
+        //    }
+
+        //    arrow.SetPosition(0, position);
+        //    arrow.SetPosition(1, position + normalizedGravity);
+        //}
         for (int i = 0; i < linesCount; ++i)
         {
-            startPositions[i] = PhysicManager.VectorToSystem(transform.position + spherePoints[i] * transform.localScale.x);
-            Vector3 currentPos = startPositions[i];
+            startPositions[i] = transform.position + spherePoints[i] * transform.localScale.x;
+            Vec3 currentPos = startPositions[i];
             List<Vec3> positions = new List<Vec3>();
-            for (int j = 0; j < lineRenderers[i].positionCount; ++j)
+            positions.Add(currentPos);
+
+            for (int j = 0; j < lineRenderers[i].positionCount - 1; ++j)
             {
-                positions.Add(PhysicManager.VectorToEngine(currentPos));
-
-                Vector3 newPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) / PhysicManager.Constant.AstronomicalDistance * 10f;
+                Vec3 totalField = -physicManager.TotalGravitionalField(currentPos);
+                if (totalField.magnitude < 0.0001f)
+                    continue;
+                Vec3 newPos = currentPos + (totalField / totalField.magnitude) * step;
+                positions.Add(newPos);
                 currentPos = newPos;
-
-                positions.Add(PhysicManager.VectorToEngine(newPos));
             }
             lineRenderers[i].SetPositions(positions.ToArray());
         }
