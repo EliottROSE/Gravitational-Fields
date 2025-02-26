@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
@@ -44,7 +43,7 @@ public class FieldLines : MonoBehaviour
             lineRenderers.Add(lineRenderer);
 
             startPositions.Add(
-                PhysicManager.VectorToSystem(transform.position + Random.onUnitSphere * transform.localScale.x));
+                PhysicManager.VectorToSystem(gameObject.transform.position + Random.onUnitSphere * gameObject.transform.localScale.x));
             spherePoints.Add(Random.onUnitSphere);
         }
     }
@@ -59,16 +58,19 @@ public class FieldLines : MonoBehaviour
         for (int i = 0; i < linesCount; ++i)
         {
             List<Vec3> pointPositions = new(pointsCount);
-            
-            startPositions[i] = PhysicManager.VectorToSystem(transform.position + spherePoints[i] * transform.localScale.x);
+
+            startPositions[i] =
+                PhysicManager.VectorToSystem(gameObject.transform.position + spherePoints[i] * transform.localScale.x);
             Vector3 currentPos = startPositions[i];
 
             for (int j = 0; j < lineRenderers[i].positionCount; ++j)
             {
                 pointPositions.Add(PhysicManager.VectorToEngine(currentPos));
-                currentPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) / PhysicManager.Constant.AstronomicalDistance * 10f;
+                currentPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) /
+                    PhysicManager.Constant.AstronomicalDistance * 10f;
                 pointPositions.Add(PhysicManager.VectorToEngine(currentPos));
             }
+
             lineRenderers[i].SetPositions(pointPositions.ToArray());
         }
     }
