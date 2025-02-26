@@ -125,34 +125,43 @@ public class ObjectInfo : UIPanel
 
     public void UpdateXPos(string input)
     {
-        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+        {
+            xPosInput.text = "";
             return;
+        }
 
-        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+        value *= PhysicManager.Constant.AstronomicalDistance;
 
-        Vector3 newPos = new(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
+        Vector3 newPos = new(value, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
         UpdatePos(newPos, xPosInput);
     }
 
     public void UpdateYPos(string input)
     {
-        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+        {
+            yPosInput.text = "";
             return;
+        }
 
-        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+        value *= PhysicManager.Constant.AstronomicalDistance;
 
-        Vector3 newPos = new(m_selectedObj.transform.position.x, inputVal, m_selectedObj.transform.position.z);
+        Vector3 newPos = new(m_selectedObj.transform.position.x, value, m_selectedObj.transform.position.z);
         UpdatePos(newPos, yPosInput);
     }
 
     public void UpdateZPos(string input)
     {
-        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+        {
+            zPosInput.text = "";
             return;
+        }
 
-        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+        value *= PhysicManager.Constant.AstronomicalDistance;
 
-        Vector3 newPos = new(m_selectedObj.transform.position.x, m_selectedObj.transform.position.y, inputVal);
+        Vector3 newPos = new(m_selectedObj.transform.position.x, m_selectedObj.transform.position.y, value);
         UpdatePos(newPos, zPosInput);
     }
 
@@ -164,12 +173,15 @@ public class ObjectInfo : UIPanel
 
     public void UpdateXSpeed(string input)
     {
-        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+        {
+            xSpeedInput.text = "";
             return;
+        }
 
         //inputVal *= PhysicManager.Constant.KmPerSecToMeterPerSec / 1000f;
 
-        Vector3 newSpeed = new(inputVal, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
+        Vector3 newSpeed = new(value, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
         UpdateSpeed(newSpeed, xSpeedInput);
     }
 
