@@ -1,28 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
-using static UnityEngine.Rendering.DebugUI;
 
 public class FieldLines : MonoBehaviour
 {
-    PhysicManager physicManager;
-
-    List<LineRenderer> lineRenderers;
-    List<Vector3> startPositions;
-    List<Vec3> spherePoints;
-
     public int pointsCount = 150;
     public int linesCount = 20;
     public float step = 0.01f;
 
-    void Start()
+    private List<LineRenderer> lineRenderers;
+    private PhysicManager physicManager;
+    private List<Vec3> spherePoints;
+    private List<Vector3> startPositions;
+
+    private void Start()
     {
-        physicManager = FindAnyObjectByType<PhysicManager>();
+        physicManager = FindObjectOfType<PhysicManager>();
         if (physicManager == null)
-            Debug.LogError("Cannot find physic manager on celestial object" + this.name);
+            Debug.LogError("Cannot find physic manager on celestial object" + name);
 
         lineRenderers = new List<LineRenderer>();
         startPositions = new List<Vector3>();
@@ -30,13 +27,10 @@ public class FieldLines : MonoBehaviour
 
         for (int i = 0; i < linesCount; ++i)
         {
-            GameObject obj = new GameObject();
+            GameObject obj = new();
             LineRenderer lineRenderer = obj.AddComponent<LineRenderer>();
 
-            if (lineRenderer == null)
-            {
-                Debug.LogError("Cannot find line renderer on celestial object" + this.name);
-            }
+            if (lineRenderer == null) Debug.LogError("Cannot find line renderer on celestial object" + name);
 
             lineRenderer.positionCount = pointsCount;
 
@@ -49,33 +43,33 @@ public class FieldLines : MonoBehaviour
 
             lineRenderers.Add(lineRenderer);
 
-            startPositions.Add(PhysicManager.VectorToSystem(transform.position + UnityEngine.Random.onUnitSphere * transform.localScale.x));
-            spherePoints.Add(UnityEngine.Random.onUnitSphere);
+            startPositions.Add(
+                PhysicManager.VectorToSystem(transform.position + Random.onUnitSphere * transform.localScale.x));
+            spherePoints.Add(Random.onUnitSphere);
         }
     }
 
-    void Update()
+    private void LateUpdate()
     {
         DrawFieldLines();
     }
 
-    public void DrawFieldLines()
+    private void DrawFieldLines()
     {
         for (int i = 0; i < linesCount; ++i)
         {
+            List<Vec3> pointPositions = new(pointsCount);
+            
             startPositions[i] = PhysicManager.VectorToSystem(transform.position + spherePoints[i] * transform.localScale.x);
             Vector3 currentPos = startPositions[i];
-            List<Vec3> positions = new List<Vec3>();
+
             for (int j = 0; j < lineRenderers[i].positionCount; ++j)
             {
-                positions.Add(PhysicManager.VectorToEngine(currentPos));
-
-                Vector3 newPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) / PhysicManager.Constant.AstronomicalDistance * 10f;
-                currentPos = newPos;
-
-                positions.Add(PhysicManager.VectorToEngine(newPos));
+                pointPositions.Add(PhysicManager.VectorToEngine(currentPos));
+                currentPos = physicManager.LineFieldNextPos(currentPos * 0.1f, step) / PhysicManager.Constant.AstronomicalDistance * 10f;
+                pointPositions.Add(PhysicManager.VectorToEngine(currentPos));
             }
-            lineRenderers[i].SetPositions(positions.ToArray());
+            lineRenderers[i].SetPositions(pointPositions.ToArray());
         }
     }
 }
