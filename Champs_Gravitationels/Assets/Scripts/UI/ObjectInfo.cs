@@ -130,7 +130,7 @@ public class ObjectInfo : UIPanel
 
         inputVal *= PhysicManager.Constant.AstronomicalDistance;
 
-        var newPos = new Vector3(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
+        Vector3 newPos = new(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
         UpdatePos(newPos, xPosInput);
     }
 
@@ -141,7 +141,7 @@ public class ObjectInfo : UIPanel
 
         inputVal *= PhysicManager.Constant.AstronomicalDistance;
 
-        var newPos = new Vector3(m_selectedObj.transform.position.x, inputVal, m_selectedObj.transform.position.z);
+        Vector3 newPos = new(m_selectedObj.transform.position.x, inputVal, m_selectedObj.transform.position.z);
         UpdatePos(newPos, yPosInput);
     }
 
@@ -152,7 +152,7 @@ public class ObjectInfo : UIPanel
 
         inputVal *= PhysicManager.Constant.AstronomicalDistance;
 
-        var newPos = new Vector3(m_selectedObj.transform.position.x, m_selectedObj.transform.position.y, inputVal);
+        Vector3 newPos = new(m_selectedObj.transform.position.x, m_selectedObj.transform.position.y, inputVal);
         UpdatePos(newPos, zPosInput);
     }
 
@@ -167,15 +167,15 @@ public class ObjectInfo : UIPanel
         if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
             return;
 
-        inputVal *= PhysicManager.Constant.KmPerSecToMeterPerSec / 1000f;
+        //inputVal *= PhysicManager.Constant.KmPerSecToMeterPerSec / 1000f;
 
-        var newSpeed = new Vector3(inputVal, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
+        Vector3 newSpeed = new(inputVal, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
         UpdateSpeed(newSpeed, xSpeedInput);
     }
 
     private void UpdateSpeed(Vector3 newSpeed, TMP_InputField inputField)
     {
-        m_selectedObj.msSpeed = newSpeed;
+        m_selectedObj.kmsSpeed = PhysicManager.VectorToEngine(newSpeed);
         inputField.text = "";
     }
 

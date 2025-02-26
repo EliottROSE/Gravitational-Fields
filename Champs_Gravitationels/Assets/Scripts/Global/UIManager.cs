@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Global;
@@ -6,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Global
 {
-    [System.Serializable]
+    [Serializable]
     public enum UIState
     {
         HIDDEN,
@@ -18,6 +19,29 @@ namespace Global
 
 public class UIManager : MonoBehaviour
 {
+    #region Event List
+
+    [HideInInspector] public UnityEvent<UIState> onUIStateUpdate;
+
+    #endregion
+
+
+    #region Unity Callbacks
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        _instance = this;
+        cam = Camera.main;
+    }
+
+    #endregion
+
     #region Parameters
 
     public GameObject background;
@@ -64,61 +88,35 @@ public class UIManager : MonoBehaviour
     #endregion
 
 
-    #region Event List
-
-    [HideInInspector] public UnityEvent<UIState> onUIStateUpdate;
-
-    #endregion
-
-
-    #region Unity Callbacks
-
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
-        _instance = this;
-        cam = Camera.main;
-    }
-
-    #endregion
-
-
     #region Custom Methods
 
     public void SwitchPanel(UIState newState)
     {
-        foreach (var panel in panelList)
-        {
+        foreach (UIPanel panel in panelList)
             if (panel.State == newState)
                 panel.Enable();
             else
                 panel.Disable();
-        }
     }
-    
+
     public void EnablePanel(UIState panelState)
     {
-        foreach (var panel in panelList)
+        foreach (UIPanel panel in panelList)
         {
             if (panel.State != panelState) continue;
             if (enabledPanels.Contains(panel)) continue;
-            
+
             panel.Enable();
             enabledPanels.Add(panel);
         }
     }
-    
+
     public void DisablePanel(UIState panelState)
     {
-        foreach (var panel in enabledPanels.ToList())
+        foreach (UIPanel panel in enabledPanels.ToList())
         {
             if (panel.State != panelState) continue;
-            
+
             panel.Disable();
             enabledPanels.Remove(panel);
         }

@@ -44,9 +44,9 @@ public class CameraController : MonoBehaviour
             FreeMode();
 
         if (!Input.GetMouseButtonDown(0)) return;
-        var ray = m_cam.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray, out var hit)) return;
-            
+        Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+
         if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
             SelectObject(hit.transform);
         else
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
 
     private static List<RaycastResult> GetEventSystemRaycastResults()
     {
-        var eventData = new PointerEventData(EventSystem.current)
+        PointerEventData eventData = new(EventSystem.current)
         {
             position = Input.mousePosition
         };
@@ -87,8 +87,8 @@ public class CameraController : MonoBehaviour
         distance -= scroll * zoomSpeed;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
-        var rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
-        var position = m_target.position - rotation * Vector3.forward * distance;
+        Quaternion rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
+        Vector3 position = m_target.position - rotation * Vector3.forward * distance;
 
         //Apply position and orientation
         if (!m_useStaticCamera)
@@ -111,8 +111,8 @@ public class CameraController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(m_pitch, m_yaw, 0);
 
-        var move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) *
-                   (moveSpeed * Time.deltaTime);
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) *
+                       (moveSpeed * Time.deltaTime);
         transform.position += transform.rotation * move;
 
         if (Input.GetKey(KeyCode.Q)) transform.position += Vector3.down * (moveSpeed * Time.deltaTime);
@@ -123,7 +123,7 @@ public class CameraController : MonoBehaviour
     {
         if (IsPointerOverUIElement())
             return;
-        
+
         m_target = newTarget;
         m_isOrbitMode = true;
 
@@ -142,7 +142,7 @@ public class CameraController : MonoBehaviour
     {
         if (IsPointerOverUIElement())
             return;
-        
+
         m_isOrbitMode = false;
         m_target = null;
 
