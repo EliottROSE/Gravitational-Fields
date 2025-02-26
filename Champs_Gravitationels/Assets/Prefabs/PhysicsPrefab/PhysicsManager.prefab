@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce97d36e31d4e24093372f42ae309b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instantiatedObjects: []
   prefabs:
   - {fileID: 5634238979271938835, guid: 617fbfec9b7c6e7498b4008fce0cf3d6, type: 3}
   - {fileID: 3380510916457202282, guid: d36b4c828ac248b488c3a8143a27b279, type: 3}
@@ -51,4 +52,5 @@ MonoBehaviour:
   - {fileID: 813178446052975709, guid: 74bad4c6eea6b6146a500d8e38f626f1, type: 3}
   - {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759, type: 3}
   - {fileID: 5873561715197865291, guid: ea2c89f55f66fcc47a0f260840b4d24c, type: 3}
-  instantiatedObjects: []
+  - {fileID: 7490434030131816097, guid: 2ee92bc784b8531438530b23f9b72e6f, type: 3}
+  bIgnoreSun: 1

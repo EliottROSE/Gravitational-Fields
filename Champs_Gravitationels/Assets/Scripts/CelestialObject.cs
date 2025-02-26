@@ -8,30 +8,30 @@ public class CelestialObject : MonoBehaviour
 {
     public string objectName;
     public Vec3 position = Vec3.zero;
+    public Vec3 kmsSpeed = Vec3.zero;
     
     public float mass;
-    [SerializeField] private float speed;
 
     [NonSerialized] public float kgMass;
-    public Vector3 msSpeed;
+    [NonSerialized] public Vector3 msSpeed;
 
-    public Vector3 msAccel;
-    public Vector3 oldMsAccel;
-    public Vector3 AstronomicalPos;
-    
-    // Proper values to display
-    [HideInInspector] public Vector3 kmsSpeed;
+    [NonSerialized] public Vector3 msAccel;
+    [NonSerialized] public Vector3 oldMsAccel;
+    [NonSerialized] public Vector3 AstronomicalPos;
+
+    [NonSerialized] private Vector3 m_Speed;
 
     private void Awake()
     {
+        m_Speed = PhysicManager.VectorToSystem(kmsSpeed);
         kgMass = mass * PhysicManager.Constant.EarthMass;
-        msSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.MeterPerSecToKmPerSec;
+        msSpeed = m_Speed * PhysicManager.Constant.KmPerSecToMeterPerSec;
         AstronomicalPos = PhysicManager.VectorToSystem(position * PhysicManager.Constant.AstronomicalDistance);
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
+        m_Speed = PhysicManager.VectorToSystem(kmsSpeed);
         transform.Rotate(new Vec3(0f, 0.1f, 0f));
-        kmsSpeed = new Vector3(1f, 0f, 0f) * speed * PhysicManager.Constant.MeterPerSecToKmPerSec / 1000f;
     }
 }

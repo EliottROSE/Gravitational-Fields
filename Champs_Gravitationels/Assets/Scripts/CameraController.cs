@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using Global;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,57 +15,64 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float zoomSpeed = 5.0f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float lookSpeed = 2f;
+    [SerializeField] private bool m_useStaticCamera;
+    private float m_azimuth; //Longitude
+    private Camera m_cam;
+    private float m_elevation = 20.0f; //Colatitude
+    private bool m_isOrbitMode;
+    private float m_pitch;
 
     private Transform m_target; //Target of the camera
-    private Camera m_cam;
-    private float m_azimuth = 0.0f; //Longitude
-    private float m_elevation = 20.0f; //Colatitude
-    private float m_yaw = 0.0f;
-    private float m_pitch = 0.0f;
-    private bool m_isOrbitMode = false;
-    [SerializeField] private bool m_useStaticCamera = false;
+    private int m_uiLayer;
+    private float m_yaw;
 
     // Start is called before the first frame update
     private void Start()
     {
         m_cam = Camera.main;
-        if(grid != null)
-        {
-            grid.SetActive(false);//Grille inactive au start
-        }
+        if (grid != null) grid.SetActive(false); //Grille inactive au start
+
+        m_uiLayer = LayerMask.NameToLayer("UI");
     }
 
     // Update is called once per frame
     private void LateUpdate()
     {
         if (m_isOrbitMode && m_target)
-        {
             OrbitMode();
-        }
         else
-        {
             FreeMode();
-        }
 
-        if (Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0)) return;
+        var ray = m_cam.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out var hit)) return;
+            
+        if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
+            SelectObject(hit.transform);
+        else
+            DeselectObject();
+    }
+
+    private bool IsPointerOverUIElement()
+    {
+        return IsPointerOverUIElement(GetEventSystemRaycastResults());
+    }
+
+    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaycastResults)
+    {
+        return eventSystemRaycastResults.Any(curRaycastResult => curRaycastResult.gameObject.layer == m_uiLayer);
+    }
+
+    private static List<RaycastResult> GetEventSystemRaycastResults()
+    {
+        var eventData = new PointerEventData(EventSystem.current)
         {
-            Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit))
-            {
-                if (hit.transform.CompareTag("TrackingObject"))
-                {
-                    SelectObject(hit.transform);
-                }
-                else if (hit.transform.CompareTag("UI"))
-                {
+            position = Input.mousePosition
+        };
+        List<RaycastResult> raycastResults = new();
+        EventSystem.current.RaycastAll(eventData, raycastResults);
 
-                }
-            }
-            else
-            {
-                DeselectObject();
-            }
-        }
+        return raycastResults;
     }
 
     private void OrbitMode()
@@ -77,13 +87,13 @@ public class CameraController : MonoBehaviour
         distance -= scroll * zoomSpeed;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
-        Quaternion rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
-        Vector3 position = m_target.position - rotation * Vector3.forward * distance;
+        var rotation = Quaternion.Euler(m_elevation, m_azimuth, 0);
+        var position = m_target.position - rotation * Vector3.forward * distance;
 
         //Apply position and orientation
         if (!m_useStaticCamera)
             transform.position = position;
-        
+
         transform.LookAt(m_target);
         transform.position = position;
 
@@ -101,21 +111,19 @@ public class CameraController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(m_pitch, m_yaw, 0);
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * (moveSpeed * Time.deltaTime);
+        var move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) *
+                   (moveSpeed * Time.deltaTime);
         transform.position += transform.rotation * move;
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            transform.position += Vector3.down * (moveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.position += Vector3.up * (moveSpeed * Time.deltaTime);
-        }
+        if (Input.GetKey(KeyCode.Q)) transform.position += Vector3.down * (moveSpeed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.E)) transform.position += Vector3.up * (moveSpeed * Time.deltaTime);
     }
 
     private void SelectObject(Transform newTarget)
     {
+        if (IsPointerOverUIElement())
+            return;
+        
         m_target = newTarget;
         m_isOrbitMode = true;
 
@@ -124,33 +132,28 @@ public class CameraController : MonoBehaviour
             selectedObject = m_target.GetComponent<CelestialObject>();
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
-        
+
         CustomEvents.ObjectClicked();
-        if(grid != null)
-        {
+        if (grid)
             grid.SetActive(true);
-        }
     }
 
     private void DeselectObject()
     {
+        if (IsPointerOverUIElement())
+            return;
+        
         m_isOrbitMode = false;
         m_target = null;
-        
+
         UIManager.Instance.DisablePanel(UIState.INFORMATION);
-        
+
         selectedObject = null;
-        if (grid != null)
-        {
-            grid.SetActive(false);
-        }
+        if (grid) grid.SetActive(false);
     }
 
-    void UpdateGravityFieldPos()
+    private void UpdateGravityFieldPos()
     {
-        if(grid != null && selectedObject != null)
-        {
-            grid.transform.position = selectedObject.transform.position;
-        }
+        if (grid && selectedObject) grid.transform.position = selectedObject.transform.position;
     }
 }

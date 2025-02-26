@@ -133,5 +133,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Mercury
   position: {x: 0, y: 0, z: 0.39}
+  kmsSpeed: {x: 47.87, y: 0, z: 0}
   mass: 0.055
-  speed: 47.87

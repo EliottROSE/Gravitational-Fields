@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Globalization;
 using Global;
@@ -10,8 +9,9 @@ public class ObjectInfo : UIPanel
 {
     #region Parameters
 
-    [Header("Text Boxes")]
-    [SerializeField] private TMP_Text objectNameText;
+    [Header("Text Boxes")] [SerializeField]
+    private TMP_Text objectNameText;
+
     [SerializeField] private TMP_InputField xPosInput;
     [SerializeField] private TMP_InputField yPosInput;
     [SerializeField] private TMP_InputField zPosInput;
@@ -20,7 +20,7 @@ public class ObjectInfo : UIPanel
     [SerializeField] private TMP_InputField zSpeedInput;
     [SerializeField] private TMP_InputField sizeInput;
     [SerializeField] private TMP_InputField massInput;
-    
+
     private TextMeshProUGUI m_xPosPlaceholder;
     private TextMeshProUGUI m_yPosPlaceholder;
     private TextMeshProUGUI m_zPosPlaceholder;
@@ -30,13 +30,11 @@ public class ObjectInfo : UIPanel
     private TextMeshProUGUI m_sizePlaceholder;
     private TextMeshProUGUI m_massPlaceholder;
 
-    [Header("Parameters")]
-    [Tooltip("Data refresh rate in seconds.")]
-    [SerializeField] private float dataRefreshRate = 0.25f;
+    [Header("Parameters")] [Tooltip("Data refresh rate in seconds.")] [SerializeField]
+    private float dataRefreshRate = 0.25f;
 
     private CameraController m_camController;
     private CelestialObject m_selectedObj;
-    private PhysicManager m_physicManager;
 
     #endregion
 
@@ -55,9 +53,8 @@ public class ObjectInfo : UIPanel
 
     public override void Enable()
     {
-        m_physicManager = FindObjectOfType<PhysicManager>();
         CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
-        
+
         m_xPosPlaceholder = xPosInput.placeholder as TextMeshProUGUI;
         m_yPosPlaceholder = yPosInput.placeholder as TextMeshProUGUI;
         m_zPosPlaceholder = zPosInput.placeholder as TextMeshProUGUI;
@@ -66,13 +63,13 @@ public class ObjectInfo : UIPanel
         m_zSpeedPlaceholder = zSpeedInput.placeholder as TextMeshProUGUI;
         m_sizePlaceholder = sizeInput.placeholder as TextMeshProUGUI;
         m_massPlaceholder = massInput.placeholder as TextMeshProUGUI;
-        
+
         /*
          * Must call gameobject twice to enable all children before enabling the actual parent
          * Otherwise, causes a NullReferenceException
          */
         gameObject.gameObject.SetActive(true);
-        
+
         /*
          * Begin object info refreshing every 2s
          * Must be done after the GameObject has been enabled
@@ -83,7 +80,7 @@ public class ObjectInfo : UIPanel
     public override void Disable()
     {
         CustomEvents.OnCelestialObjectClicked -= UpdateData;
-        
+
         StopCoroutine(DataUpdateLoop());
 
         gameObject.SetActive(false);
@@ -113,35 +110,73 @@ public class ObjectInfo : UIPanel
         m_xPosPlaceholder.SetText(m_selectedObj.transform.position.x / 10f + " ua");
         m_yPosPlaceholder.SetText(m_selectedObj.transform.position.y / 10f + " ua");
         m_zPosPlaceholder.SetText(m_selectedObj.transform.position.z / 10f + " ua");
-        m_xSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.X + " km/s");
-        m_ySpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.Y + " km/s");
-        m_zSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.Z + " km/s");
+        m_xSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.x + " km/s");
+        m_ySpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.y + " km/s");
+        m_zSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.z + " km/s");
         m_sizePlaceholder.SetText(m_selectedObj.gameObject.transform.localScale.ToString());
         m_massPlaceholder.SetText(m_selectedObj.mass.ToString(CultureInfo.InvariantCulture));
-    }
-    
-    public void GetXPos(string input)
-    {
-        float inputVal = float.Parse(input, CultureInfo.InvariantCulture);
-        Vector3 newPos = new Vector3(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
-        Vector3 newAstronomicalPos = newPos * PhysicManager.Constant.AstronomicalDistance;
-
-        Debug.Log("New Position : " + newPos);
-        Debug.Log("New Astro Position : " + newAstronomicalPos);
-        
-        Debug.Log("Initial Transform Position : " + m_selectedObj.transform.position);
-        
-        //m_physicManager.NewPosition(newPos, m_selectedObj.msSpeed, m_selectedObj.msAccel);
-        m_selectedObj.AstronomicalPos = newAstronomicalPos;
-        Debug.Log("Final Position : " + m_selectedObj.AstronomicalPos);
-        
-        Debug.Log("Final Transform Position : " + m_selectedObj.transform.position);
     }
 
     private void UpdateSelectedObject()
     {
         m_selectedObj = m_camController?.selectedObject ? m_camController.selectedObject : null;
         UpdateData();
+    }
+
+    public void UpdateXPos(string input)
+    {
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+            return;
+
+        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+
+        var newPos = new Vector3(inputVal, m_selectedObj.transform.position.y, m_selectedObj.transform.position.z);
+        UpdatePos(newPos, xPosInput);
+    }
+
+    public void UpdateYPos(string input)
+    {
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+            return;
+
+        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+
+        var newPos = new Vector3(m_selectedObj.transform.position.x, inputVal, m_selectedObj.transform.position.z);
+        UpdatePos(newPos, yPosInput);
+    }
+
+    public void UpdateZPos(string input)
+    {
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+            return;
+
+        inputVal *= PhysicManager.Constant.AstronomicalDistance;
+
+        var newPos = new Vector3(m_selectedObj.transform.position.x, m_selectedObj.transform.position.y, inputVal);
+        UpdatePos(newPos, zPosInput);
+    }
+
+    private void UpdatePos(Vector3 newPos, TMP_InputField inputField)
+    {
+        m_selectedObj.AstronomicalPos = newPos;
+        inputField.text = "";
+    }
+
+    public void UpdateXSpeed(string input)
+    {
+        if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out float inputVal))
+            return;
+
+        inputVal *= PhysicManager.Constant.KmPerSecToMeterPerSec / 1000f;
+
+        var newSpeed = new Vector3(inputVal, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
+        UpdateSpeed(newSpeed, xSpeedInput);
+    }
+
+    private void UpdateSpeed(Vector3 newSpeed, TMP_InputField inputField)
+    {
+        m_selectedObj.msSpeed = newSpeed;
+        inputField.text = "";
     }
 
     #endregion

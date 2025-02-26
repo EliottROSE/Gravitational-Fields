@@ -113,5 +113,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Saturn
   position: {x: 0, y: 0, z: 9.58}
+  kmsSpeed: {x: 9.69, y: 0, z: 0}
   mass: 95.2
-  speed: 9.69

@@ -1,51 +1,67 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Vector3 = System.Numerics.Vector3;
 using Vec3 = UnityEngine.Vector3;
 
 public class PhysicManager : MonoBehaviour
 {
-    public class Constant
-    {
-        public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   
-        public const float EarthMass = 5.927e24f; // kg
-        public const float MeterPerSecToKmPerSec = 1000; // m.s-1
-        public const float AstronomicalDistance = 1.495978707e11f; // m
-        public const float DeltaT = 36000f; // s
-    }
-    Dictionary<Vector3, float> originPointsData;
-    int frame = 0;
-    [SerializeField] public List<CelestialObject> prefabs;
-
-    public List<CelestialObject> instantiatedObjects;
-
+    [HideInInspector] public List<CelestialObject> instantiatedObjects;
+    public List<CelestialObject> prefabs;
     public bool bIgnoreSun = true;
+
+    private Dictionary<Vector3, float> m_originPointsData;
+
+    private void Start()
+    {
+        foreach (var celestialObjectPrefab in prefabs)
+        {
+            var celestialInstance = Instantiate(celestialObjectPrefab, celestialObjectPrefab.position * 10f,
+                Quaternion.identity);
+
+            instantiatedObjects.Add(celestialInstance);
+        }
+
+        StartCompute();
+    }
+
+    private void FixedUpdate()
+    {
+        //Debug.Log("-------------------------------------------------------------------------------------------------------------");
+        //Debug.Log("Frame : " + frame);
+        foreach (var celestialObject in instantiatedObjects)
+        {
+            var pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel);
+            celestialObject.AstronomicalPos = pos;
+
+            //Debug.Log("Name : " + celestialObject.name);
+            //Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
+            //Debug.Log("New EnginePos : " + celestialObject.transform.position);
+
+            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance) * 10f;
+
+
+            celestialObject.oldMsAccel = celestialObject.msAccel;
+            celestialObject.msAccel = GravitationalForce(celestialObject);
+
+            celestialObject.msSpeed =
+                NewSpeed(celestialObject.msSpeed, celestialObject.oldMsAccel, celestialObject.msAccel);
+        }
+    }
 
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
         return new Vector3(unityVec.x, unityVec.y, unityVec.z);
     }
+
     public static Vec3 VectorToEngine(Vector3 systemVec)
     {
         return new Vec3(systemVec.X, systemVec.Y, systemVec.Z);
     }
 
-    void Start()
+    private void StartCompute()
     {
-        foreach (CelestialObject celestialObjectprefab in prefabs)
-        {
-            CelestialObject celestialInstance = Instantiate(celestialObjectprefab, celestialObjectprefab.position * 10f, Quaternion.identity);
-
-            instantiatedObjects.Add(celestialInstance);
-        }
-        StartCompute();
-    }
-
-    void StartCompute()
-    {
-        foreach (CelestialObject celestialObject in instantiatedObjects)
+        foreach (var celestialObject in instantiatedObjects)
         {
             // Do not need to compute pos, precalculate
             celestialObject.oldMsAccel = Vector3.Zero;
@@ -60,59 +76,35 @@ public class PhysicManager : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        frame++;
-        //Debug.Log("-------------------------------------------------------------------------------------------------------------");
-        //Debug.Log("Frame : " + frame);
-        foreach (CelestialObject celestialObject in instantiatedObjects)
-        {
-            Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed, celestialObject.msAccel);
-            celestialObject.AstronomicalPos = pos;
-
-            //Debug.Log("Name : " + celestialObject.name);
-            //Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
-            //Debug.Log("New EnginePos : " + celestialObject.transform.position);
-
-            celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance) * 10f;
-
-
-            celestialObject.oldMsAccel = celestialObject.msAccel;
-            celestialObject.msAccel = GravitationalForce(celestialObject);
-
-            celestialObject.msSpeed = NewSpeed(celestialObject.msSpeed, celestialObject.oldMsAccel, celestialObject.msAccel);
-        }
-    }
-
     /*------------------------------------------Base Algorithm--------------------------------*/
-    public Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration)
+    private static Vector3 NewPosition(Vector3 oldPosition, Vector3 oldSpeed, Vector3 oldAcceleration)
     {
-        Vector3 result = oldPosition + oldSpeed * Constant.DeltaT + 0.5f * oldAcceleration * Mathf.Pow(Constant.DeltaT, 2f);
+        var result = oldPosition + oldSpeed * Constant.DeltaT + 0.5f * oldAcceleration * Mathf.Pow(Constant.DeltaT, 2f);
         return result;
     }
 
-    public Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
+    private static Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
     {
         //Vector3 distance = origin - target; // vector Rij
 
         //Vector3 result = Constant.Gravity * (distance / Mathf.Pow(distance.Length(), 3)) * originMass;
 
         //return result;
-        Vector3 distance = origin - target; // Vecteur Rij en 3D
+        var distance = origin - target; // Vecteur Rij en 3D
 
         // Assurez-vous de ne pas avoir de division par z�ro, m�me avec de petites distances
         float distSquared = distance.LengthSquared() + 0.0001f; // Offset pour �viter NaN
         float distCubed = Mathf.Sqrt(distSquared) * distSquared; // Calcul du cube de la distance
 
         // Calcul de la force gravitationnelle en prenant en compte la distance 3D
-        Vector3 result = Constant.Gravity * (distance / distCubed) * originMass;
+        var result = Constant.Gravity * (distance / distCubed) * originMass;
 
         return result;
     }
 
-    public Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration)
+    private static Vector3 NewSpeed(Vector3 oldSpeed, Vector3 oldAcceleration, Vector3 newAcceleration)
     {
-        Vector3 result = oldSpeed + ((oldAcceleration + newAcceleration) * 0.5f) * Constant.DeltaT; 
+        var result = oldSpeed + (oldAcceleration + newAcceleration) * 0.5f * Constant.DeltaT;
         return result;
     }
 
@@ -120,22 +112,21 @@ public class PhysicManager : MonoBehaviour
     /*------------------------------------------Total Gravitational Field--------------------------------*/
     public Vec3 TotalGravitionalField(Vec3 target)
     {
-        Vec3 totalGravity = Vec3.zero;
+        var totalGravity = Vec3.zero;
 
-        foreach (CelestialObject celestialObject in instantiatedObjects)
+        foreach (var celestialObject in instantiatedObjects)
         {
             if (bIgnoreSun && celestialObject.objectName.Equals("Sun", StringComparison.OrdinalIgnoreCase))
                 continue;
 
             float mass = celestialObject.kgMass;
-            Vec3 direction = celestialObject.transform.position - target;
+            var direction = celestialObject.transform.position - target;
             float distanceSqr = direction.magnitude;
 
-            if (distanceSqr > 0.001f) // Evite les divisions par zero
-            {
-                float forceMagnitude = Constant.Gravity * mass / distanceSqr;
-                totalGravity += direction.normalized * forceMagnitude;
-            }
+            if (!(distanceSqr > 0.001f)) continue; // Avoid 0 divisions
+
+            float forceMagnitude = Constant.Gravity * mass / distanceSqr;
+            totalGravity += direction.normalized * forceMagnitude;
         }
 
         return totalGravity;
@@ -143,33 +134,43 @@ public class PhysicManager : MonoBehaviour
 
 
     /*------------------------------------------Gravitational Acceleration------------------------------------------*/
-    public Vector3 GravitationalForce(CelestialObject m_celestial)
+    private Vector3 GravitationalForce(CelestialObject m_celestial)
     {
-        Vector3 sum = Vector3.Zero;
-        Vector3 target = m_celestial.AstronomicalPos;
-        foreach (CelestialObject celestialObject in instantiatedObjects)
+        var sum = Vector3.Zero;
+        var target = m_celestial.AstronomicalPos;
+        foreach (var celestialObject in instantiatedObjects)
         {
-            if (m_celestial != celestialObject)
-            {
-                Vector3 origin = celestialObject.AstronomicalPos;
-                sum += Acceleration(origin, target, celestialObject.kgMass);
-            }
+            if (m_celestial == celestialObject) continue;
+
+            var origin = celestialObject.AstronomicalPos;
+            sum += Acceleration(origin, target, celestialObject.kgMass);
         }
+
         return sum;
     }
 
     /*------------------------------------------Line field------------------------------------------*/
     public Vector3 LineFieldNextPos(Vector3 currentPos, float step)
     {
-        Vector3 currentPosAstro = currentPos * Constant.AstronomicalDistance;
+        var currentAstronomicalPos = currentPos * Constant.AstronomicalDistance;
 
-        Vector3 gravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentPosAstro)));
+        var gravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentAstronomicalPos)));
 
         if (gravitationalField.Length() < 0.001f)
             return Vector3.Zero;
 
-        currentPosAstro += step * Constant.AstronomicalDistance * gravitationalField / gravitationalField.Length();
+        currentAstronomicalPos +=
+            step * Constant.AstronomicalDistance * gravitationalField / gravitationalField.Length();
 
-        return currentPosAstro; /* In astronomical reference */
+        return currentAstronomicalPos; /* In astronomical reference */
+    }
+
+    public abstract class Constant
+    {
+        public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   
+        public const float EarthMass = 5.927e24f; // kg
+        public const float KmPerSecToMeterPerSec = 1000; // m.s-1
+        public const float AstronomicalDistance = 1.495978707e11f; // m
+        public const float DeltaT = 36000f; // s
     }
 }

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 175045440}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 209589516}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 210393056}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 210454702}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 262475255}
   m_Layer: 0
   m_Name: Speed Header Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 544401070}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1002,7 +1002,7 @@ GameObject:
   - component: {fileID: 705052294}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 707235273}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1210,7 +1210,7 @@ GameObject:
   - component: {fileID: 756077163}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 761064945}
   m_Layer: 0
   m_Name: Mass Header Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1388,7 +1388,7 @@ GameObject:
   - component: {fileID: 821267069}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 840259073}
   m_Layer: 5
   m_Name: Size Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1685,7 +1685,7 @@ GameObject:
   - component: {fileID: 869059366}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1840,7 +1840,7 @@ GameObject:
   - component: {fileID: 870922732}
   m_Layer: 5
   m_Name: Z Pos Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1926,7 +1926,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717892974}
+        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
+        m_MethodName: UpdateZPos
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -2173,7 +2185,7 @@ GameObject:
   - component: {fileID: 925617993}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2227,7 +2239,7 @@ GameObject:
   - component: {fileID: 935611429}
   m_Layer: 5
   m_Name: Mass Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2402,7 +2414,7 @@ GameObject:
   - component: {fileID: 936081600}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2557,7 +2569,7 @@ GameObject:
   - component: {fileID: 1003432292}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2712,7 +2724,7 @@ GameObject:
   - component: {fileID: 1020381957}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2865,7 +2877,7 @@ GameObject:
   - component: {fileID: 1030007738}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2917,7 +2929,7 @@ GameObject:
   - component: {fileID: 1130926710}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3035,7 +3047,7 @@ GameObject:
   - component: {fileID: 1206234562}
   m_Layer: 5
   m_Name: Z Speed Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3208,7 +3220,7 @@ GameObject:
   - component: {fileID: 1311130278}
   m_Layer: 5
   m_Name: Text Area
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3262,7 +3274,7 @@ GameObject:
   - component: {fileID: 1473022026}
   m_Layer: 5
   m_Name: Y Pos Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3348,7 +3360,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717892974}
+        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
+        m_MethodName: UpdateYPos
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -3436,7 +3460,7 @@ GameObject:
   - component: {fileID: 1484599367}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3571,7 +3595,7 @@ GameObject:
   - component: {fileID: 1506486260}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3831,7 +3855,7 @@ GameObject:
   - component: {fileID: 1519561226}
   m_Layer: 5
   m_Name: Y Speed Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4123,7 +4147,7 @@ GameObject:
   - component: {fileID: 1529050042}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4257,7 +4281,7 @@ GameObject:
   - component: {fileID: 1588392517}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4392,7 +4416,7 @@ GameObject:
   - component: {fileID: 1728762708}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4547,7 +4571,7 @@ GameObject:
   - component: {fileID: 1757447841}
   m_Layer: 5
   m_Name: Placeholder
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4701,7 +4725,7 @@ GameObject:
   - component: {fileID: 1835221468}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4836,7 +4860,7 @@ GameObject:
   - component: {fileID: 1879038530}
   m_Layer: 5
   m_Name: X Speed Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4922,7 +4946,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717892974}
+        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
+        m_MethodName: UpdateXSpeed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -5010,7 +5046,7 @@ GameObject:
   - component: {fileID: 1889937758}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5145,7 +5181,7 @@ GameObject:
   - component: {fileID: 1893063835}
   m_Layer: 5
   m_Name: X Pos Input Field
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5234,7 +5270,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 717892974}
         m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
-        m_MethodName: GetXPos
+        m_MethodName: UpdateXPos
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5331,7 +5367,7 @@ GameObject:
   - component: {fileID: 2011666506}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5557,7 +5593,7 @@ GameObject:
   - component: {fileID: 8252470976387458032}
   m_Layer: 0
   m_Name: Position Header Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5728,7 +5764,7 @@ GameObject:
   - component: {fileID: 9000335369481054753}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5769,7 +5805,7 @@ GameObject:
   - component: {fileID: 7861690897204873135}
   m_Layer: 0
   m_Name: Size Header Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5884,7 +5920,7 @@ GameObject:
   - component: {fileID: 1721298570599240315}
   m_Layer: 0
   m_Name: Grid Banner
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6016,7 +6052,7 @@ GameObject:
   - component: {fileID: 4152913390824372916}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6171,7 +6207,7 @@ GameObject:
   - component: {fileID: 6532023822734551588}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6249,7 +6285,7 @@ GameObject:
   - component: {fileID: 6130146629082630700}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6305,7 +6341,7 @@ GameObject:
   - component: {fileID: 7250816573089857036}
   m_Layer: 0
   m_Name: Planet Information Header
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

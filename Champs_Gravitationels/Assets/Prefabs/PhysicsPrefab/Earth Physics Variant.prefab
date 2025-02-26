@@ -90,8 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Earth
   position: {x: 0, y: 0, z: 1}
+  kmsSpeed: {x: 29.78, y: 0, z: 0}
   mass: 1
-  speed: 29.78
 --- !u!114 &-3660820746356125870
 MonoBehaviour:
   m_ObjectHideFlags: 0

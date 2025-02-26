@@ -142,5 +142,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Venus
   position: {x: 0, y: 0, z: 0.72}
+  kmsSpeed: {x: 35.02, y: 0, z: 0}
   mass: 0.815
-  speed: 35.02
