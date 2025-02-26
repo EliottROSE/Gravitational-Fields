@@ -8,14 +8,15 @@ public class CameraController : MonoBehaviour
 {
     public GameObject grid;
     public CelestialObject selectedObject;
-    [SerializeField] private float distance = 10.0f; //Initial distance
-    [SerializeField] private float minDistance = 0.1f;
+    [SerializeField] private float distance = 1.5f; //Initial distance
+    [SerializeField] private float minDistance = 0.5f;
     [SerializeField] private float maxDistance = 50.0f;
     [SerializeField] private float rotationSpeed = 100.0f;
     [SerializeField] private float zoomSpeed = 5.0f;
-    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private bool m_useStaticCamera;
+
     private float m_azimuth; //Longitude
     private Camera m_cam;
     private float m_elevation = 20.0f; //Colatitude
@@ -33,6 +34,9 @@ public class CameraController : MonoBehaviour
         if (grid != null) grid.SetActive(false); //Grille inactive au start
 
         m_uiLayer = LayerMask.NameToLayer("UI");
+        
+        GameObject sun = GameObject.Find("Sun(Clone)");
+        transform.LookAt(sun.transform);
     }
 
     // Update is called once per frame
