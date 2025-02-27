@@ -80,6 +80,7 @@ public class FieldLines : MonoBehaviour
                 lineRenderer.enabled = false;
             }
         }
+
         physicManager.lineRenderers = lineRenderers;
         physicManager.spherePoints = spherePoints;
         physicManager.startPositions = startPositions;

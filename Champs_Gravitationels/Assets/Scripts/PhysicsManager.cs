@@ -158,23 +158,6 @@ public class PhysicManager : MonoBehaviour
 
         return sum;
     }
-
-    /*------------------------------------------Line field------------------------------------------*/
-    public Vector3 LineFieldNextPos(Vector3 currentPos, float step)
-    {
-        Vector3 currentAstronomicalPos = currentPos * Constant.AstronomicalDistance;
-
-        Vector3 gravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentAstronomicalPos)));
-
-        if (gravitationalField.Length() < 0.001f)
-            return Vector3.Zero;
-
-        currentAstronomicalPos +=
-            step * Constant.AstronomicalDistance * (gravitationalField / gravitationalField.Length());
-
-        return currentAstronomicalPos; /* In astronomical reference */
-    }
-
     public abstract class Constant
     {
         public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
@@ -16,9 +17,16 @@ public class GravityFieldVisualizer : MonoBehaviour
     public bool is2DMode = false;
     public bool isFieldVisible = false;
 
+    public UnityEvent SetFieldModeEvent;
+
     private void Start()
     {
-
+        //if (SetFieldModeEvent == null)
+        //{
+        //    SetFieldModeEvent = new UnityEvent();
+        //    SetFieldModeEvent.AddListener(GenerateGrid);
+        //}
+        //GenerateGrid();
     }
 
     void GenerateGrid()
@@ -92,7 +100,7 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     void LateUpdate()
     {
-        if(isFieldVisible)
+        if (isFieldVisible)
         {
             if (is2DMode == true)
             {
