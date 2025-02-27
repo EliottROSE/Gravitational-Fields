@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using Global;
 using TMPro;
 using UnityEngine;
@@ -41,6 +40,7 @@ public class ObjectInfo : UIPanel
     private CameraController m_camController;
     private CelestialObject m_selectedObj;
     private GravityFieldVisualizer m_visualizer;
+
     #endregion
 
 
@@ -59,8 +59,8 @@ public class ObjectInfo : UIPanel
     private void Start()
     {
         m_visualizer = FindAnyObjectByType<GravityFieldVisualizer>();
-
     }
+
     public override void Enable()
     {
         CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
@@ -211,44 +211,41 @@ public class ObjectInfo : UIPanel
 
     private void SetField()
     {
-        if (!m_visualizer.isFieldVisible)
+        if (m_visualizer.isFieldVisible)
         {
-            m_visualizer.isFieldVisible = true;
+            m_visualizer.isFieldVisible = false;
+            CustomEvents.GridDeletion();
         }
         else
         {
-            m_visualizer.isFieldVisible = false;
+            m_visualizer.isFieldVisible = true;
+            CustomEvents.GridCreation();
         }
     }
 
     private void SetFieldDimension()
     {
-        if (!m_visualizer.is2DMode)
-        {
-            m_visualizer.is2DMode = true;
-        }
-        else
-        {
-            m_visualizer.is2DMode = false;
-        }
+        m_visualizer.is2DMode = !m_visualizer.is2DMode;
+        
+        CustomEvents.GridDeletion();
+        CustomEvents.GridCreation();
     }
 
     private void SetLine()
     {
-        FieldLines selectedFieldLines = m_selectedObj.GetComponent<FieldLines>();
+        m_selectedObj.TryGetComponent(out FieldLines selectedFieldLines);
 
-        if (selectedFieldLines != null)
+        if (!selectedFieldLines) return;
+
+        if (selectedFieldLines.Active)
         {
-            if (selectedFieldLines.Active)
-            {
-                selectedFieldLines.Active = false;
-                selectedFieldLines.RemoveLines();
-            }
-            else
-            {
-                selectedFieldLines.Active = true;
-                selectedFieldLines.SetupFieldLines();
-            }
+            selectedFieldLines.Active = false;
+            selectedFieldLines.RemoveLines();
+        }
+        else
+        {
+            selectedFieldLines.Active = true;
+            selectedFieldLines.SetupFieldLines();
         }
     }
 

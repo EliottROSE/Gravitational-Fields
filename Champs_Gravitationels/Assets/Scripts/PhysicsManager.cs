@@ -11,14 +11,14 @@ public class PhysicManager : MonoBehaviour
     public CelestialObject genericPrefab;
     public bool bIgnoreSun = true;
 
-    private Dictionary<Vector3, float> m_originPointsData;
-
     public List<LineRenderer> lineRenderers;
     public List<Vec3> spherePoints;
     public List<Vec3> startPositions;
+
+    private Dictionary<Vector3, float> m_originPointsData;
+
     private void Start()
     {
-
         foreach (CelestialObject celestialObjectPrefab in prefabs)
         {
             CelestialObject celestialInstance = Instantiate(celestialObjectPrefab,
@@ -29,23 +29,15 @@ public class PhysicManager : MonoBehaviour
         }
 
         StartCompute();
-
-
     }
 
     private void FixedUpdate()
     {
-        //Debug.Log("-------------------------------------------------------------------------------------------------------------");
-        //Debug.Log("Frame : " + frame);
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
             Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed,
                 celestialObject.msAccel);
             celestialObject.AstronomicalPos = pos;
-
-            //Debug.Log("Name : " + celestialObject.name);
-            //Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
-            //Debug.Log("New EnginePos : " + celestialObject.transform.position);
 
             celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance);
 
@@ -72,7 +64,7 @@ public class PhysicManager : MonoBehaviour
 
         instantiatedObjects.Add(newPlanet);
     }
-    
+
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
         return new Vector3(unityVec.x, unityVec.y, unityVec.z);
@@ -157,22 +149,6 @@ public class PhysicManager : MonoBehaviour
         }
 
         return sum;
-    }
-
-    /*------------------------------------------Line field------------------------------------------*/
-    public Vector3 LineFieldNextPos(Vector3 currentPos, float step)
-    {
-        Vector3 currentAstronomicalPos = currentPos * Constant.AstronomicalDistance;
-
-        Vector3 gravitationalField = VectorToSystem(-TotalGravitionalField(VectorToEngine(currentAstronomicalPos)));
-
-        if (gravitationalField.Length() < 0.001f)
-            return Vector3.Zero;
-
-        currentAstronomicalPos +=
-            step * Constant.AstronomicalDistance * (gravitationalField / gravitationalField.Length());
-
-        return currentAstronomicalPos; /* In astronomical reference */
     }
 
     public abstract class Constant

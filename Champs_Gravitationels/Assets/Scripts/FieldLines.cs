@@ -8,13 +8,13 @@ public class FieldLines : MonoBehaviour
     public int linesCount = 20;
     public float step = 0.01f;
 
+    public bool Active;
+
     private List<LineRenderer> lineRenderers;
 
     private PhysicManager physicManager;
     private List<Vec3> spherePoints;
     private List<Vec3> startPositions;
-
-    public bool Active = false;
 
     private void Start()
     {
@@ -23,14 +23,16 @@ public class FieldLines : MonoBehaviour
             Debug.LogError("Cannot find physic manager on celestial object" + name);
     }
 
+    private void LateUpdate()
+    {
+        if (Active) DrawFieldLines();
+    }
+
     public void SetupFieldLines()
     {
         if (physicManager.lineRenderers.Count != 0)
         {
-            foreach (LineRenderer lineRenderer in physicManager.lineRenderers)
-            { 
-                lineRenderer.enabled = true;
-            }
+            foreach (LineRenderer lineRenderer in physicManager.lineRenderers) lineRenderer.enabled = true;
             lineRenderers = physicManager.lineRenderers;
             spherePoints = physicManager.spherePoints;
             startPositions = physicManager.startPositions;
@@ -46,7 +48,8 @@ public class FieldLines : MonoBehaviour
                 GameObject obj = new();
                 LineRenderer lineRenderer = obj.AddComponent<LineRenderer>();
 
-                if (lineRenderer == null) Debug.LogError("Cannot find line renderer on celestial object" + name);
+                if (!lineRenderer)
+                    Debug.LogError("Cannot find line renderer on celestial object" + name);
 
                 lineRenderer.positionCount = pointsCount;
 
@@ -67,31 +70,17 @@ public class FieldLines : MonoBehaviour
             physicManager.spherePoints = spherePoints;
             physicManager.startPositions = startPositions;
         }
-
-
     }
 
     public void RemoveLines()
     {
         foreach (LineRenderer lineRenderer in lineRenderers)
-        {
             if (lineRenderer.enabled)
-            {
                 lineRenderer.enabled = false;
-            }
-        }
+
         physicManager.lineRenderers = lineRenderers;
         physicManager.spherePoints = spherePoints;
         physicManager.startPositions = startPositions;
-
-    }
-
-    private void LateUpdate()
-    {
-        if (Active)
-        {
-            DrawFieldLines();
-        }
     }
 
     private void DrawFieldLines()

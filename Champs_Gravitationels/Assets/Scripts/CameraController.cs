@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
         if (grid != null) grid.SetActive(false); //Grille inactive au start
 
         m_uiLayer = LayerMask.NameToLayer("UI");
-        
+
         GameObject sun = GameObject.Find("Sun(Clone)");
         transform.LookAt(sun.transform);
         UIManager.Instance.EnablePanel(UIState.MAIN);
@@ -136,15 +136,16 @@ public class CameraController : MonoBehaviour
         m_target = newTarget;
         m_isOrbitMode = true;
 
-        if (m_target.GetComponent<CelestialObject>())
+        if (m_target.TryGetComponent(out CelestialObject celestialObject))
         {
-            if (selectedObject != null)
+            if (selectedObject)
             {
-                selectedObject.GetComponent<FieldLines>().Active = false;
-                selectedObject.GetComponent<FieldLines>().RemoveLines();
+                selectedObject.TryGetComponent(out FieldLines fieldLines);
+                fieldLines.enabled = false;
+                fieldLines.RemoveLines();
             }
 
-            selectedObject = m_target.GetComponent<CelestialObject>();
+            selectedObject = celestialObject;
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
 
