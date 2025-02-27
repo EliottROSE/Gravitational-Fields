@@ -56,6 +56,10 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        if (!hit.transform.gameObject)
+        {
+            return;
+        }
         if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
             SelectObject(hit.transform);
         else
@@ -148,7 +152,6 @@ public class CameraController : MonoBehaviour
             selectedObject = celestialObject;
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
-
         CustomEvents.ObjectClicked();
         if (grid)
             grid.SetActive(true);
@@ -166,6 +169,7 @@ public class CameraController : MonoBehaviour
 
         selectedObject = null;
         if (grid) grid.SetActive(false);
+
     }
 
     private void UpdateGravityFieldPos()

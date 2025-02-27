@@ -6987,7 +6987,7 @@ PrefabInstance:
     - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
         type: 3}
       propertyPath: density
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8631477318064841525, guid: 4fcde8c64bb8c6a41b35e23ef77cab34,
         type: 3}

@@ -12,6 +12,7 @@ public class GravityFieldVisualizer : MonoBehaviour
     public bool isFieldVisible;
     private readonly List<LineRenderer> arrows = new();
 
+
     private void Start()
     {
         CustomEvents.OnGridCreated += GenerateGrid;
