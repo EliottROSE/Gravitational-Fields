@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using Global;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class ObjectInfo : UIPanel
     [SerializeField] private TMP_InputField massInput;
     [SerializeField] private Button fieldInput;
     [SerializeField] private Button LineInput;
+    [SerializeField] private Button LineDimensionInput;
 
     private TextMeshProUGUI m_xPosPlaceholder;
     private TextMeshProUGUI m_yPosPlaceholder;
@@ -38,7 +40,7 @@ public class ObjectInfo : UIPanel
 
     private CameraController m_camController;
     private CelestialObject m_selectedObj;
-
+    private GravityFieldVisualizer m_visualizer;
     #endregion
 
 
@@ -54,6 +56,11 @@ public class ObjectInfo : UIPanel
         UpdateSelectedObject();
     }
 
+    private void Start()
+    {
+        m_visualizer = FindAnyObjectByType<GravityFieldVisualizer>();
+
+    }
     public override void Enable()
     {
         CustomEvents.OnCelestialObjectClicked += UpdateSelectedObject;
@@ -68,6 +75,7 @@ public class ObjectInfo : UIPanel
         m_massPlaceholder = massInput.placeholder as TextMeshProUGUI;
         fieldInput.onClick.AddListener(SetField);
         LineInput.onClick.AddListener(SetLine);
+        LineDimensionInput.onClick.AddListener(SetFieldDimension);
         /*
          * Must call gameobject twice to enable all children before enabling the actual parent
          * Otherwise, causes a NullReferenceException
@@ -92,6 +100,7 @@ public class ObjectInfo : UIPanel
 
         fieldInput.onClick.RemoveListener(SetField);
         LineInput.onClick.RemoveListener(SetLine);
+        LineDimensionInput.onClick.RemoveListener(SetFieldDimension);
         gameObject.SetActive(false);
     }
 
@@ -202,7 +211,26 @@ public class ObjectInfo : UIPanel
 
     private void SetField()
     {
-        Debug.Log("Not set yet");
+        if (!m_visualizer.isFieldVisible)
+        {
+            m_visualizer.isFieldVisible = true;
+        }
+        else
+        {
+            m_visualizer.isFieldVisible = false;
+        }
+    }
+
+    private void SetFieldDimension()
+    {
+        if (!m_visualizer.is2DMode)
+        {
+            m_visualizer.is2DMode = true;
+        }
+        else
+        {
+            m_visualizer.is2DMode = false;
+        }
     }
 
     private void SetLine()
