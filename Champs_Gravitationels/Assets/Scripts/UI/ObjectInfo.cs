@@ -127,6 +127,7 @@ public class ObjectInfo : UIPanel
 
     private void UpdateData()
     {
+        if (!m_selectedObj) return;
         objectNameText.SetText(m_selectedObj.objectName);
         m_xPosPlaceholder.SetText(m_selectedObj.transform.position.x / 10f + " ua");
         m_yPosPlaceholder.SetText(m_selectedObj.transform.position.y / 10f + " ua");

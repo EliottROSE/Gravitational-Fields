@@ -71,7 +71,8 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (manager.instantiatedObjects.Count <= 0) return;
+        if (manager.instantiatedObjects.Count <= 0) 
+            return;
 
         GameObject firstObject = manager.instantiatedObjects[0].gameObject;
         transform.LookAt(firstObject.transform);
