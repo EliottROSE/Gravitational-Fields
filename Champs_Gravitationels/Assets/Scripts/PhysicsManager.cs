@@ -61,7 +61,7 @@ public class PhysicManager : MonoBehaviour
     public void AddPlanet(Vector3 pos, Vector3 speed, float mass, Vector3 size)
     {
         CelestialObject newPlanet = Instantiate(genericPrefab, VectorToEngine(pos), Quaternion.identity);
-        newPlanet.transform.localScale = VectorToEngine(size);
+        newPlanet.transform.localScale = VectorToEngine(size * Constant.Scale);
 
         newPlanet.AstronomicalPos = pos * Constant.AstronomicalDistance;
         newPlanet.msSpeed = speed * Constant.KmPerSecToMeterPerSec;
@@ -189,5 +189,6 @@ public class PhysicManager : MonoBehaviour
         public const float KmPerSecToMeterPerSec = 1000; // m.s-1
         public const float AstronomicalDistance = 1.495978707e11f; // m
         public const float DeltaT = 36000f; // s
+        public const float Scale = 0.1f;
     }
 }
