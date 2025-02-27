@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Global;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,6 +16,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private bool m_useStaticCamera;
+    [SerializeField] private PhysicManager manager;
 
     private float m_azimuth; //Longitude
     private Camera m_cam;
@@ -36,19 +35,8 @@ public class CameraController : MonoBehaviour
         if (grid != null) grid.SetActive(false); //Grille inactive au start
 
         m_uiLayer = LayerMask.NameToLayer("UI");
-        
+
         UIManager.Instance.EnablePanel(UIState.MAIN);
-    }
-
-    private void OnEnable()
-    {
-        PhysicManager manager = FindAnyObjectByType<PhysicManager>();
-
-        if (manager.instantiatedObjects.Count > 0)
-        {
-            GameObject firstObject = manager.instantiatedObjects[0].gameObject;
-            transform.LookAt(firstObject.transform);
-        }
     }
 
     // Update is called once per frame
@@ -69,16 +57,24 @@ public class CameraController : MonoBehaviour
 
         if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
         {
-            if (selectedObject != null && hit.transform.GameObject() == selectedObject.gameObject)
+            if (selectedObject && hit.collider.gameObject == selectedObject.gameObject)
                 return;
+
             SelectObject(hit.transform);
         }
         else
         {
-            if (selectedObject != null)
+            if (selectedObject)
                 DeselectObject();
         }
+    }
 
+    private void OnEnable()
+    {
+        if (manager.instantiatedObjects.Count <= 0) return;
+
+        GameObject firstObject = manager.instantiatedObjects[0].gameObject;
+        transform.LookAt(firstObject.transform);
     }
 
     private bool IsPointerOverUIElement()
@@ -158,15 +154,17 @@ public class CameraController : MonoBehaviour
         if (m_target.TryGetComponent(out CelestialObject celestialObject))
         {
             if (selectedObject)
-            {
-                selectedObject.TryGetComponent(out FieldLines fieldLines);
-                fieldLines.enabled = false;
-                fieldLines.RemoveLines();
-            }
+                if (selectedObject.TryGetComponent(out FieldLines lines))
+                {
+                    lines.Active = false;
+                    lines.RemoveLines();
+                }
+
 
             selectedObject = celestialObject;
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }
+
         CustomEvents.ObjectClicked();
         if (grid)
             grid.SetActive(true);
@@ -183,7 +181,8 @@ public class CameraController : MonoBehaviour
         UIManager.Instance.DisablePanel(UIState.INFORMATION);
 
         selectedObject = null;
-        if (grid) grid.SetActive(false);
+        if (grid)
+            grid.SetActive(false);
     }
 
     private void UpdateGravityFieldPos()

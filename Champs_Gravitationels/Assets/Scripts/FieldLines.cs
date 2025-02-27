@@ -74,6 +74,9 @@ public class FieldLines : MonoBehaviour
 
     public void RemoveLines()
     {
+        if (lineRenderers == null || lineRenderers.Count == 0)
+            return;
+        
         foreach (LineRenderer lineRenderer in lineRenderers)
             if (lineRenderer.enabled)
                 lineRenderer.enabled = false;
