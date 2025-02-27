@@ -490,19 +490,7 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 717892974}
-        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
-        m_MethodName: UpdateZPos
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -2619,19 +2607,7 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 717892974}
-        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
-        m_MethodName: UpdateXPos
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -2774,6 +2750,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7706773819502419326, guid: a18e27814db0f8b4bad5d02064cee0f8,
+        type: 3}
+      propertyPath: genericPrefab
+      value: 
+      objectReference: {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759,
+        type: 3}
     - target: {fileID: 7706773819502419326, guid: a18e27814db0f8b4bad5d02064cee0f8,
         type: 3}
       propertyPath: prefabs.Array.size
@@ -3650,19 +3632,7 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 717892974}
-        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
-        m_MethodName: UpdateXSpeed
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -3837,19 +3807,7 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 717892974}
-        m_TargetAssemblyTypeName: ObjectInfo, Assembly-CSharp
-        m_MethodName: UpdateYPos
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -5291,7 +5249,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1613441452}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1730878013}
+        m_TargetAssemblyTypeName: MainPanel, Assembly-CSharp
+        m_MethodName: CreatePlanet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1613441452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5920,6 +5890,14 @@ MonoBehaviour:
   CreatePlanetButton: {fileID: 1613441451}
   EnableSunButton: {fileID: 1151035150}
   EnableSunText: {fileID: 1634430596}
+  xPosInput: {fileID: 665595613}
+  yPosInput: {fileID: 970231786}
+  zPosInput: {fileID: 118306605}
+  xSpeedInput: {fileID: 969276081}
+  ySpeedInput: {fileID: 1469306647}
+  zSpeedInput: {fileID: 1430157079}
+  sizeInput: {fileID: 1737803644}
+  massInput: {fileID: 223933440}
 --- !u!4 &1730878014
 Transform:
   m_ObjectHideFlags: 0
