@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1377197793697218, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_Name
-      value: Saturn Variant
+      value: Saturn
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalScale.x
@@ -92,6 +92,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7490434030131816097}
+    - targetCorrespondingSourceObject: {fileID: 1377197793697218, guid: b4201d402613a4464b35c805dafcca62,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1760836280508402263}
   m_SourcePrefab: {fileID: 100100000, guid: b4201d402613a4464b35c805dafcca62, type: 3}
 --- !u!1 &1597537067918067354 stripped
 GameObject:
@@ -115,3 +119,19 @@ MonoBehaviour:
   originalPosition: {x: 0, y: 0, z: 9.58}
   kmsSpeed: {x: 9.69, y: 0, z: 0}
   mass: 95.2
+--- !u!114 &-1760836280508402263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597537067918067354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b473b5e726b74724b80675b1f4f28bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsCount: 150
+  linesCount: 20
+  step: 0.01
+  Active: 0

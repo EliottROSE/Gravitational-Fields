@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1288793558353234, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_Name
-      value: Mars Variant
+      value: Mars
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.x
@@ -97,6 +97,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2118298818934405338}
+    - targetCorrespondingSourceObject: {fileID: 1288793558353234, guid: 1818e1a170ef94c3aacee2ba50057521,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3707248402910522599}
   m_SourcePrefab: {fileID: 100100000, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
 --- !u!1 &3556920608789599162 stripped
 GameObject:
@@ -120,3 +124,19 @@ MonoBehaviour:
   originalPosition: {x: 0, y: 0, z: 1.52}
   kmsSpeed: {x: 24.07, y: 0, z: 0}
   mass: 0.107
+--- !u!114 &-3707248402910522599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556920608789599162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b473b5e726b74724b80675b1f4f28bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsCount: 150
+  linesCount: 20
+  step: 0.01
+  Active: 0

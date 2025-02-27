@@ -8,12 +8,17 @@ public class PhysicManager : MonoBehaviour
 {
     [HideInInspector] public List<CelestialObject> instantiatedObjects;
     public List<CelestialObject> prefabs;
+    public CelestialObject genericPrefab;
     public bool bIgnoreSun = true;
 
     private Dictionary<Vector3, float> m_originPointsData;
 
+    public List<LineRenderer> lineRenderers;
+    public List<Vec3> spherePoints;
+    public List<Vec3> startPositions;
     private void Start()
     {
+
         foreach (CelestialObject celestialObjectPrefab in prefabs)
         {
             CelestialObject celestialInstance = Instantiate(celestialObjectPrefab,
@@ -24,6 +29,8 @@ public class PhysicManager : MonoBehaviour
         }
 
         StartCompute();
+
+
     }
 
     private void FixedUpdate()
@@ -51,6 +58,21 @@ public class PhysicManager : MonoBehaviour
         }
     }
 
+    public void AddPlanet(Vector3 pos, Vector3 speed, float mass, Vector3 size)
+    {
+        CelestialObject newPlanet = Instantiate(genericPrefab, VectorToEngine(pos), Quaternion.identity);
+        newPlanet.transform.localScale = VectorToEngine(size * Constant.Scale);
+
+        newPlanet.AstronomicalPos = pos * Constant.AstronomicalDistance;
+        newPlanet.msSpeed = speed * Constant.KmPerSecToMeterPerSec;
+        newPlanet.kgMass = mass * Constant.EarthMass;
+
+        newPlanet.oldMsAccel = Vector3.Zero;
+        newPlanet.msAccel = GravitationalForce(newPlanet);
+
+        instantiatedObjects.Add(newPlanet);
+    }
+    
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
         return new Vector3(unityVec.x, unityVec.y, unityVec.z);
@@ -65,16 +87,8 @@ public class PhysicManager : MonoBehaviour
     {
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
-            // Do not need to compute pos, precalculate
             celestialObject.oldMsAccel = Vector3.Zero;
-            celestialObject.msAccel = GravitationalForce(celestialObject); // compute initial acceleration
-            //Debug.Log(celestialObject.name);
-            //Debug.Log("Start data");
-            //Debug.Log("AstronomicalPos : " + celestialObject.AstronomicalPos);
-            //Debug.Log("EnginePos : " + celestialObject.transform.position);
-            //Debug.Log("old : " + celestialObject.oldMsAccel);
-            //Debug.Log("Accel : " + celestialObject.msAccel);
-            //Debug.Log("speed : " + celestialObject.msSpeed);
+            celestialObject.msAccel = GravitationalForce(celestialObject);
         }
     }
 
@@ -168,5 +182,6 @@ public class PhysicManager : MonoBehaviour
         public const float KmPerSecToMeterPerSec = 1000; // m.s-1
         public const float AstronomicalDistance = 1.495978707e11f; // m
         public const float DeltaT = 36000f; // s
+        public const float Scale = 0.1f;
     }
 }

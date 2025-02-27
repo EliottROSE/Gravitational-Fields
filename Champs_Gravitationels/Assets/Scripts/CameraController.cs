@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
         
         GameObject sun = GameObject.Find("Sun(Clone)");
         transform.LookAt(sun.transform);
+        UIManager.Instance.EnablePanel(UIState.MAIN);
     }
 
     // Update is called once per frame
@@ -137,6 +138,12 @@ public class CameraController : MonoBehaviour
 
         if (m_target.GetComponent<CelestialObject>())
         {
+            if (selectedObject != null)
+            {
+                selectedObject.GetComponent<FieldLines>().Active = false;
+                selectedObject.GetComponent<FieldLines>().RemoveLines();
+            }
+
             selectedObject = m_target.GetComponent<CelestialObject>();
             UIManager.Instance.EnablePanel(UIState.INFORMATION);
         }

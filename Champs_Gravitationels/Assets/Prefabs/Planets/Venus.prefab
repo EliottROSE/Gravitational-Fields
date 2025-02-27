@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_Name
-      value: Venus Variant
+      value: Venus
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.x
@@ -121,6 +121,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8054892799927412492}
+    - targetCorrespondingSourceObject: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7326231766297266268}
   m_SourcePrefab: {fileID: 100100000, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
 --- !u!1 &7150066264138798614 stripped
 GameObject:
@@ -144,3 +148,19 @@ MonoBehaviour:
   originalPosition: {x: 0, y: 0, z: 0.72}
   kmsSpeed: {x: 35.02, y: 0, z: 0}
   mass: 0.815
+--- !u!114 &-7326231766297266268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7150066264138798614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b473b5e726b74724b80675b1f4f28bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsCount: 150
+  linesCount: 20
+  step: 0.01
+  Active: 0
