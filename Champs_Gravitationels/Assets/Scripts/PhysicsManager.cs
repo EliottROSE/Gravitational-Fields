@@ -16,6 +16,7 @@ public class PhysicManager : MonoBehaviour
     public List<Vec3> startPositions;
 
     private Dictionary<Vector3, float> m_originPointsData;
+    [SerializeField] private float accuracy = 0.001f;
 
     private void Start()
     {
@@ -149,6 +150,24 @@ public class PhysicManager : MonoBehaviour
         }
 
         return sum;
+    }
+    
+    private Vector3 Rotational(Vec3 point)
+    {
+        Vec3 dx = new(accuracy, 0f, 0f);
+        Vec3 dy = new(0f, accuracy, 0f);
+        Vec3 dz = new(0f, 0f, accuracy);
+        
+        float dZy = (TotalGravitionalField(point + dz).y - TotalGravitionalField(point - dz).y) / (accuracy * 2);
+        float dYz = (TotalGravitionalField(point + dy).z - TotalGravitionalField(point - dy).z) / (accuracy * 2);
+        
+        float dZx = (TotalGravitionalField(point + dz).x - TotalGravitionalField(point - dz).x) / (accuracy * 2);
+        float dXz = (TotalGravitionalField(point + dx).z - TotalGravitionalField(point - dx).z) / (accuracy * 2);
+        
+        float dYx = (TotalGravitionalField(point + dy).x - TotalGravitionalField(point - dy).x) / (accuracy * 2);
+        float dXy = (TotalGravitionalField(point + dx).y - TotalGravitionalField(point - dx).y) / (accuracy * 2);
+        
+        return new Vector3(dZy - dYz, dZx - dXz, dYx - dXy);
     }
 
     public abstract class Constant
