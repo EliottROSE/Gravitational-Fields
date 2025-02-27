@@ -484,6 +484,7 @@ MonoBehaviour:
   moveSpeed: 5
   lookSpeed: 2
   m_useStaticCamera: 0
+  manager: {fileID: 701832260}
 --- !u!114 &881286843
 MonoBehaviour:
   m_ObjectHideFlags: 0

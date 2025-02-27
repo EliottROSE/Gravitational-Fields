@@ -31,6 +31,7 @@ public class CelestialObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PhysicManager.IsPaused) return;
         m_Speed = PhysicManager.VectorToSystem(kmsSpeed);
         transform.Rotate(new Vec3(0f, 0.1f, 0f));
     }
