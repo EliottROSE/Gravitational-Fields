@@ -55,8 +55,7 @@ public class GravityFieldVisualizer : MonoBehaviour
                 arrow.SetPosition(0, position);
                 arrow.SetPosition(1, position);
             }
-
-            //float gravityStrength = Mathf.Clamp01(gravity.magnitude);
+            
             Color arrowColor = Color.Lerp(Color.yellow, Color.red, gravity.magnitude);
             Gradient gradient = new();
             gradient.SetKeys(
@@ -115,8 +114,8 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         GameObject arrow = new("Arrow");
         LineRenderer line = arrow.AddComponent<LineRenderer>();
-        line.startWidth = 0.01f;
-        line.endWidth = 0.002f;
+        line.startWidth = 0.03f;
+        line.endWidth = 0.001f;
         line.positionCount = 2;
 
         line.material = new Material(Shader.Find("Sprites/Default"));
