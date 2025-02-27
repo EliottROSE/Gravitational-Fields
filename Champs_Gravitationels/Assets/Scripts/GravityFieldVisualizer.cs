@@ -76,8 +76,9 @@ public class GravityFieldVisualizer : MonoBehaviour
             for (float k = 0; k < density; k++)
             {
                 float x = center.x - gridSize / 2 + i * spacing;
+                float y = center.y;
                 float z = center.z - gridSize / 2 + k * spacing;
-                Vector3 position = new(x, 0, z);
+                Vector3 position = new(x, y, z);
 
                 //Create an arrow
                 LineRenderer line = CreateArrow(position);
