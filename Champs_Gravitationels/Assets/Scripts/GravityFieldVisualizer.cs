@@ -17,16 +17,10 @@ public class GravityFieldVisualizer : MonoBehaviour
     public bool is2DMode = false;
     public bool isFieldVisible = false;
 
-    public UnityEvent SetFieldModeEvent;
 
     private void Start()
     {
-        //if (SetFieldModeEvent == null)
-        //{
-        //    SetFieldModeEvent = new UnityEvent();
-        //    SetFieldModeEvent.AddListener(GenerateGrid);
-        //}
-        //GenerateGrid();
+        
     }
 
     void GenerateGrid()
@@ -102,16 +96,8 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         if (isFieldVisible)
         {
-            if (is2DMode == true)
-            {
-                ClearGrid();
-                GenerateGrid();
-            }
-            else
-            {
-                ClearGrid();
-                GenerateGrid();
-            }
+            ClearGrid();
+            GenerateGrid();
         }
         else
         {
