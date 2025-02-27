@@ -32,8 +32,8 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     private void UpdateGrid()
     {
-        if (!isFieldVisible)
-            return;
+        /*if (!isFieldVisible)
+            return;*/
 
         foreach (LineRenderer arrow in arrows)
         {
@@ -129,7 +129,9 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     private void ClearGrid()
     {
-        foreach (LineRenderer arrow in arrows) Destroy(arrow.gameObject);
+        foreach (LineRenderer arrow in arrows)
+            Destroy(arrow.gameObject);
+        
         arrows.Clear();
     }
 }

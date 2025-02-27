@@ -32,10 +32,11 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         m_cam = Camera.main;
-        if (grid != null) grid.SetActive(false); //Grille inactive au start
+
+        if (grid)
+            grid.SetActive(false); // Grille inactive au start
 
         m_uiLayer = LayerMask.NameToLayer("UI");
-
         UIManager.Instance.EnablePanel(UIState.MAIN);
     }
 
@@ -49,6 +50,7 @@ public class CameraController : MonoBehaviour
 
         if (!Input.GetMouseButtonDown(0)) return;
         Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
+
         if (!Physics.Raycast(ray, out RaycastHit hit))
         {
             DeselectObject();
@@ -166,14 +168,27 @@ public class CameraController : MonoBehaviour
         }
 
         CustomEvents.ObjectClicked();
+
         if (grid)
+        {
+            UpdateGravityFieldPos();
+            
             grid.SetActive(true);
+        }
     }
 
     private void DeselectObject()
     {
         if (IsPointerOverUIElement())
             return;
+        
+        if (grid)
+        {
+            CustomEvents.GridDeletion();
+
+            if (grid.TryGetComponent(out GravityFieldVisualizer gravityFieldVisualizer))
+                gravityFieldVisualizer.isFieldVisible = false;
+        }
 
         m_isOrbitMode = false;
         m_target = null;
@@ -181,12 +196,11 @@ public class CameraController : MonoBehaviour
         UIManager.Instance.DisablePanel(UIState.INFORMATION);
 
         selectedObject = null;
-        if (grid)
-            grid.SetActive(false);
     }
 
     private void UpdateGravityFieldPos()
     {
-        if (grid && selectedObject) grid.transform.position = selectedObject.transform.position;
+        if (grid && selectedObject)
+            grid.transform.position = selectedObject.transform.position;
     }
 }
