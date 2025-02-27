@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 public class GravityFieldVisualizer : MonoBehaviour
@@ -13,6 +14,7 @@ public class GravityFieldVisualizer : MonoBehaviour
     private List<LineRenderer> arrows = new List<LineRenderer>();
 
     public bool is2DMode = false;
+    public bool isFieldVisible = false;
 
     private void Start()
     {
@@ -32,12 +34,6 @@ public class GravityFieldVisualizer : MonoBehaviour
                     float x = center.x - gridSize / 2 + i * spacing;
                     float z = center.z - gridSize / 2 + k * spacing;
                     Vector3 position = new Vector3(x, 0, z);
-
-                    //Check if a celestial body is near
-                    //if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
-                    //{
-                    //    continue;
-                    //}
 
                     //Create an arrow
                     LineRenderer line = CreateArrow(position);
@@ -60,12 +56,6 @@ public class GravityFieldVisualizer : MonoBehaviour
                         float z = center.z - gridSize / 2 + k * spacing;
                         Vector3 position = new Vector3(x , y , z);
 
-                        //Check if a celestial body is near
-                        if (Physics.CheckSphere(position, cameraC.selectedObject.GetComponent<SphereCollider>().radius, objectMask))
-                        {
-                            continue;
-                        }
-
                         //Create an arrow
                         LineRenderer line = CreateArrow(position);
                         arrows.Add(line);
@@ -79,10 +69,12 @@ public class GravityFieldVisualizer : MonoBehaviour
     {
         GameObject arrow = new GameObject("Arrow");
         LineRenderer line = arrow.AddComponent<LineRenderer>();
-        line.startWidth = 0.1f;
-        line.endWidth = 0.02f;
+        line.startWidth = 0.01f;
+        line.endWidth = 0.002f;
         line.positionCount = 2;
 
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        
         arrow.transform.position = position;
         arrow.transform.parent = transform;
 
@@ -100,30 +92,32 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     void LateUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if(isFieldVisible)
         {
-            if(is2DMode == true)
+            if (is2DMode == true)
             {
-                is2DMode = false;
                 ClearGrid();
                 GenerateGrid();
             }
             else
             {
-                is2DMode = true;
                 ClearGrid();
                 GenerateGrid();
             }
         }
+        else
+        {
+            ClearGrid();
+        }
+
         foreach (LineRenderer arrow in arrows)
         {
             Vector3 position = arrow.transform.position;
             Vector3 gravity = gravityField.TotalGravitionalField(position);
 
-            if(gravity.magnitude > 0.0001f)
+            if (gravity.magnitude > 0.0001f)
             {
                 Vector3 normalizedGravity = gravity.normalized;
-                float length = Mathf.Min(gravity.magnitude, Mathf.Sqrt(3));
 
                 if(is2DMode)
                 {
@@ -131,13 +125,21 @@ public class GravityFieldVisualizer : MonoBehaviour
                 }
 
                 arrow.SetPosition(0, position);
-                arrow.SetPosition(1, position + normalizedGravity);
+                arrow.SetPosition(1, position + normalizedGravity * 0.1f);
             }
             else
             {
                 arrow.SetPosition(0, position);
                 arrow.SetPosition(1, position);
             }
+            //float gravityStrength = Mathf.Clamp01(gravity.magnitude);
+            Color arrowColor = Color.Lerp(Color.yellow, Color.red, gravity.magnitude);
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(arrowColor, 0.0f), new GradientColorKey(arrowColor, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+            arrow.colorGradient = gradient;
         }
     }
 }

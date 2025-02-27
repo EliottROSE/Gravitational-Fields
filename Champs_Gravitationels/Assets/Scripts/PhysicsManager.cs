@@ -88,18 +88,11 @@ public class PhysicManager : MonoBehaviour
 
     private static Vector3 Acceleration(Vector3 origin, Vector3 target, float originMass)
     {
-        //Vector3 distance = origin - target; // vector Rij
-
-        //Vector3 result = Constant.Gravity * (distance / Mathf.Pow(distance.Length(), 3)) * originMass;
-
-        //return result;
         Vector3 distance = origin - target; // Vecteur Rij en 3D
 
-        // Assurez-vous de ne pas avoir de division par z�ro, m�me avec de petites distances
-        float distSquared = distance.LengthSquared() + 0.0001f; // Offset pour �viter NaN
-        float distCubed = Mathf.Sqrt(distSquared) * distSquared; // Calcul du cube de la distance
+        float distSquared = distance.LengthSquared() + 0.0001f; // Offset to avoid NaN
+        float distCubed = Mathf.Sqrt(distSquared) * distSquared;
 
-        // Calcul de la force gravitationnelle en prenant en compte la distance 3D
         Vector3 result = Constant.Gravity * (distance / distCubed) * originMass;
 
         return result;
