@@ -14,7 +14,8 @@ namespace Global
         CREATION,
         INFORMATION,
         TIME_CONTROL,
-        MAIN
+        MAIN,
+        ACTIONS
     }
 }
 

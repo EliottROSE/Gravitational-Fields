@@ -156,11 +156,11 @@ public class CameraController : MonoBehaviour
         m_isOrbitMode = true;
         if (m_target.GetComponent<CelestialObject>())
         {
-            //if (selectedObject != null)
-            //{
-            //    selectedObject.GetComponent<FieldLines>().Active = false;
-            //    selectedObject.GetComponent<FieldLines>().RemoveLines();
-            //}
+            if (selectedObject != null)
+            {
+                selectedObject.GetComponent<FieldLines>().Active = false;
+                selectedObject.GetComponent<FieldLines>().RemoveLines();
+            }
 
             selectedObject = m_target.GetComponent<CelestialObject>();
             UIManager.Instance.EnablePanel(UIState.INFORMATION);

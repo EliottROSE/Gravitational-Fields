@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8395452156875265626
+--- !u!1 &4316333769249200389
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5529477316465048681}
-  - component: {fileID: 5189161261487026544}
-  - component: {fileID: 2306221448930537901}
+  - component: {fileID: 6659869052250617184}
+  - component: {fileID: 1801085996518427392}
+  - component: {fileID: 6944985999424412257}
   m_Layer: 0
   m_Name: Asteroid_2b
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5529477316465048681
+--- !u!4 &6659869052250617184
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395452156875265626}
+  m_GameObject: {fileID: 4316333769249200389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 609790409891630996}
+  m_Father: {fileID: 338405311556829365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5189161261487026544
+--- !u!33 &1801085996518427392
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395452156875265626}
+  m_GameObject: {fileID: 4316333769249200389}
   m_Mesh: {fileID: -7144315526428891541, guid: fe32ecc4795076b499284418da6de799, type: 3}
---- !u!23 &2306221448930537901
+--- !u!23 &6944985999424412257
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395452156875265626}
+  m_GameObject: {fileID: 4316333769249200389}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &605195834626526058
+--- !u!1001 &333898130271585355
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -97,7 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_Name
-      value: Asteroide1
+      value: Asteroide10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1982611864615202, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_IsActive
@@ -178,46 +182,46 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5529477316465048681}
+      addedObject: {fileID: 6659869052250617184}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3008301077716576870}
+      addedObject: {fileID: 5346313109330803418}
     - targetCorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 833833535576857491}
+      addedObject: {fileID: 6543999604148621068}
   m_SourcePrefab: {fileID: 100100000, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
---- !u!1 &603552049324224810 stripped
+--- !u!1 &334418210698395147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86,
     type: 3}
-  m_PrefabInstance: {fileID: 605195834626526058}
+  m_PrefabInstance: {fileID: 333898130271585355}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3008301077716576870
+--- !u!114 &5346313109330803418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603552049324224810}
+  m_GameObject: {fileID: 334418210698395147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Earth
-  originalPosition: {x: 0.85, y: -0.21, z: 0.48}
-  kmsSpeed: {x: -12.3, y: 5.6, z: 2.1}
-  mass: 0.0021
---- !u!114 &833833535576857491
+  originalPosition: {x: -0.31, y: 0.92, z: -0.43}
+  kmsSpeed: {x: 14.3, y: 6.9, z: 3.1}
+  mass: 0.0024
+--- !u!114 &6543999604148621068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603552049324224810}
+  m_GameObject: {fileID: 334418210698395147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b473b5e726b74724b80675b1f4f28bc7, type: 3}
@@ -227,9 +231,9 @@ MonoBehaviour:
   linesCount: 20
   step: 0.03
   Active: 0
---- !u!4 &609790409891630996 stripped
+--- !u!4 &338405311556829365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86,
     type: 3}
-  m_PrefabInstance: {fileID: 605195834626526058}
+  m_PrefabInstance: {fileID: 333898130271585355}
   m_PrefabAsset: {fileID: 0}

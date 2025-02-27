@@ -35,6 +35,7 @@ public class GravityFieldVisualizer : MonoBehaviour
                 {
                     float x = center.x - gridSize / 2 + i * spacing;
                     float z = center.z - gridSize / 2 + k * spacing;
+                    //float y = center.y - gridSize / 2 
                     Vector3 position = new Vector3(x, 0, z);
 
                     //Create an arrow

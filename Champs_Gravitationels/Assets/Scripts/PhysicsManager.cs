@@ -16,6 +16,8 @@ public class PhysicManager : MonoBehaviour
     public List<LineRenderer> lineRenderers;
     public List<Vec3> spherePoints;
     public List<Vec3> startPositions;
+
+    public static bool IsPaused = false;
     private void Start()
     {
 
@@ -35,6 +37,8 @@ public class PhysicManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsPaused)
+            return;
         //Debug.Log("-------------------------------------------------------------------------------------------------------------");
         //Debug.Log("Frame : " + frame);
         foreach (CelestialObject celestialObject in instantiatedObjects)
