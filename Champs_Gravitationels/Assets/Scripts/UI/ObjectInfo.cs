@@ -91,8 +91,11 @@ public class ObjectInfo : UIPanel
 
     public override void Disable()
     {
-        m_selectedObj.GetComponent<FieldLines>().Active = false;
-        m_selectedObj.GetComponent<FieldLines>().RemoveLines();
+        if (m_selectedObj.GetComponent<FieldLines>().Active)
+        {
+            m_selectedObj.GetComponent<FieldLines>().Active = false;
+            m_selectedObj.GetComponent<FieldLines>().RemoveLines();
+        }
 
         CustomEvents.OnCelestialObjectClicked -= UpdateData;
 

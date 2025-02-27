@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Global;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,9 +37,18 @@ public class CameraController : MonoBehaviour
 
         m_uiLayer = LayerMask.NameToLayer("UI");
         
-        GameObject sun = GameObject.Find("Sun(Clone)");
-        transform.LookAt(sun.transform);
         UIManager.Instance.EnablePanel(UIState.MAIN);
+    }
+
+    private void OnEnable()
+    {
+        PhysicManager manager = FindAnyObjectByType<PhysicManager>();
+
+        if (manager.instantiatedObjects.Count > 0)
+        {
+            GameObject firstObject = manager.instantiatedObjects[0].gameObject;
+            transform.LookAt(firstObject.transform);
+        }
     }
 
     // Update is called once per frame
@@ -56,14 +67,18 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        if (!hit.transform.gameObject)
-        {
-            return;
-        }
         if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
+        {
+            if (selectedObject != null && hit.transform.GameObject() == selectedObject.gameObject)
+                return;
             SelectObject(hit.transform);
+        }
         else
-            DeselectObject();
+        {
+            if (selectedObject != null)
+                DeselectObject();
+        }
+
     }
 
     private bool IsPointerOverUIElement()
@@ -163,6 +178,7 @@ public class CameraController : MonoBehaviour
         m_isOrbitMode = false;
         m_target = null;
 
+        // Problem here
         UIManager.Instance.DisablePanel(UIState.INFORMATION);
 
         selectedObject = null;
