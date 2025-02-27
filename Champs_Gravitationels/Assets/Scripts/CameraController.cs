@@ -49,7 +49,11 @@ public class CameraController : MonoBehaviour
 
         if (!Input.GetMouseButtonDown(0)) return;
         Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+        if (!Physics.Raycast(ray, out RaycastHit hit))
+        {
+            DeselectObject();
+            return;
+        }
 
         if (!IsPointerOverUIElement() && hit.transform.CompareTag("TrackingObject"))
             SelectObject(hit.transform);
