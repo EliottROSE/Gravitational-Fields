@@ -11,16 +11,16 @@ public class PhysicManager : MonoBehaviour
     public CelestialObject genericPrefab;
     public bool bIgnoreSun = true;
 
-    private Dictionary<Vector3, float> m_originPointsData;
-
     public List<LineRenderer> lineRenderers;
     public List<Vec3> spherePoints;
     public List<Vec3> startPositions;
 
     public static bool IsPaused = false;
+    private Dictionary<Vector3, float> m_originPointsData;
+    [SerializeField] private float accuracy = 0.001f;
+
     private void Start()
     {
-
         foreach (CelestialObject celestialObjectPrefab in prefabs)
         {
             CelestialObject celestialInstance = Instantiate(celestialObjectPrefab,
@@ -31,8 +31,6 @@ public class PhysicManager : MonoBehaviour
         }
 
         StartCompute();
-
-
     }
 
     private void FixedUpdate()
@@ -46,10 +44,6 @@ public class PhysicManager : MonoBehaviour
             Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed,
                 celestialObject.msAccel);
             celestialObject.AstronomicalPos = pos;
-
-            //Debug.Log("Name : " + celestialObject.name);
-            //Debug.Log("New AstronomicalPos" + celestialObject.AstronomicalPos);
-            //Debug.Log("New EnginePos : " + celestialObject.transform.position);
 
             celestialObject.transform.position = VectorToEngine(pos / Constant.AstronomicalDistance);
 
@@ -76,7 +70,7 @@ public class PhysicManager : MonoBehaviour
 
         instantiatedObjects.Add(newPlanet);
     }
-    
+
     public static Vector3 VectorToSystem(Vec3 unityVec)
     {
         return new Vector3(unityVec.x, unityVec.y, unityVec.z);
@@ -162,6 +156,25 @@ public class PhysicManager : MonoBehaviour
 
         return sum;
     }
+    
+    private Vector3 Rotational(Vec3 point)
+    {
+        Vec3 dx = new(accuracy, 0f, 0f);
+        Vec3 dy = new(0f, accuracy, 0f);
+        Vec3 dz = new(0f, 0f, accuracy);
+        
+        float dZy = (TotalGravitionalField(point + dz).y - TotalGravitionalField(point - dz).y) / (accuracy * 2);
+        float dYz = (TotalGravitionalField(point + dy).z - TotalGravitionalField(point - dy).z) / (accuracy * 2);
+        
+        float dZx = (TotalGravitionalField(point + dz).x - TotalGravitionalField(point - dz).x) / (accuracy * 2);
+        float dXz = (TotalGravitionalField(point + dx).z - TotalGravitionalField(point - dx).z) / (accuracy * 2);
+        
+        float dYx = (TotalGravitionalField(point + dy).x - TotalGravitionalField(point - dy).x) / (accuracy * 2);
+        float dXy = (TotalGravitionalField(point + dx).y - TotalGravitionalField(point - dx).y) / (accuracy * 2);
+        
+        return new Vector3(dZy - dYz, dZx - dXz, dYx - dXy);
+    }
+
     public abstract class Constant
     {
         public const float Gravity = 6.6743e-11f; // m3 kg-1 s-2   
