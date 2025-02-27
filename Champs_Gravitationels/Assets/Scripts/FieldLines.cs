@@ -14,62 +14,88 @@ public class FieldLines : MonoBehaviour
     private List<Vec3> spherePoints;
     private List<Vec3> startPositions;
 
+    public bool Active = false;
+
     private void Start()
     {
         physicManager = FindObjectOfType<PhysicManager>();
         if (physicManager == null)
             Debug.LogError("Cannot find physic manager on celestial object" + name);
+    }
 
-        lineRenderers = new List<LineRenderer>(linesCount);
-        startPositions = new List<Vec3>(linesCount);
-        spherePoints = new List<Vec3>(linesCount);
-
-        for (int i = 0; i < linesCount; ++i)
+    public void SetupFieldLines()
+    {
+        if (physicManager.lineRenderers.Count != 0)
         {
-            GameObject obj = new();
-            LineRenderer lineRenderer = obj.AddComponent<LineRenderer>();
-
-            if (lineRenderer == null) Debug.LogError("Cannot find line renderer on celestial object" + name);
-
-            lineRenderer.positionCount = pointsCount;
-
-            lineRenderer.startWidth = 0.01f;
-            lineRenderer.endWidth = 0.01f;
-
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.green;
-
-            lineRenderers.Add(lineRenderer);
-
-            startPositions.Add(transform.position + Random.onUnitSphere * transform.localScale.x);
-            spherePoints.Add(Random.onUnitSphere);
+            foreach (LineRenderer lineRenderer in physicManager.lineRenderers)
+            { 
+                lineRenderer.enabled = true;
+            }
+            lineRenderers = physicManager.lineRenderers;
+            spherePoints = physicManager.spherePoints;
+            startPositions = physicManager.startPositions;
         }
+        else
+        {
+            lineRenderers = new List<LineRenderer>(linesCount);
+            startPositions = new List<Vec3>(linesCount);
+            spherePoints = new List<Vec3>(linesCount);
+
+            for (int i = 0; i < linesCount; ++i)
+            {
+                GameObject obj = new();
+                LineRenderer lineRenderer = obj.AddComponent<LineRenderer>();
+
+                if (lineRenderer == null) Debug.LogError("Cannot find line renderer on celestial object" + name);
+
+                lineRenderer.positionCount = pointsCount;
+
+                lineRenderer.startWidth = 0.01f;
+                lineRenderer.endWidth = 0.01f;
+
+                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                lineRenderer.startColor = Color.red;
+                lineRenderer.endColor = Color.green;
+
+                lineRenderers.Add(lineRenderer);
+
+                startPositions.Add(transform.position + Random.onUnitSphere * transform.localScale.x);
+                spherePoints.Add(Random.onUnitSphere);
+            }
+
+            physicManager.lineRenderers = lineRenderers;
+            physicManager.spherePoints = spherePoints;
+            physicManager.startPositions = startPositions;
+        }
+
+
+    }
+
+    public void RemoveLines()
+    {
+        foreach (LineRenderer lineRenderer in lineRenderers)
+        {
+            if (lineRenderer.enabled)
+            {
+                lineRenderer.enabled = false;
+            }
+        }
+        physicManager.lineRenderers = lineRenderers;
+        physicManager.spherePoints = spherePoints;
+        physicManager.startPositions = startPositions;
+
     }
 
     private void LateUpdate()
     {
-        DrawFieldLines();
+        if (Active)
+        {
+            DrawFieldLines();
+        }
     }
 
     private void DrawFieldLines()
     {
-        //Vector3 position = arrow.transform.position;
-        //Vector3 gravity = gravityField.TotalGravitionalField(position);
-
-        //if (gravity.magnitude > 0.0001f)
-        //{
-        //    Vector3 normalizedGravity = gravity.normalized;
-        //    float length = Mathf.Min(gravity.magnitude, Mathf.Sqrt(3));
-
-        //    if (is2DMode)
-        //    {
-        //        normalizedGravity.y = 0;
-        //    }
-
-        //    arrow.SetPosition(0, position);
-        //    arrow.SetPosition(1, position + normalizedGravity);
-        //}
         for (int i = 0; i < linesCount; ++i)
         {
             startPositions[i] = transform.position + spherePoints[i] * transform.localScale.x;

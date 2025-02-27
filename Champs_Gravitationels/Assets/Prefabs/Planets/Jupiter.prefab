@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1526814149960808, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_Name
-      value: Jupiter Variant
+      value: Jupiter
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalScale.x
@@ -92,6 +92,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5873561715197865291}
+    - targetCorrespondingSourceObject: {fileID: 1526814149960808, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3337259808704907509}
   m_SourcePrefab: {fileID: 100100000, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
 --- !u!1 &8046966052601874291 stripped
 GameObject:
@@ -115,3 +119,19 @@ MonoBehaviour:
   originalPosition: {x: 0, y: 0, z: 5.2}
   kmsSpeed: {x: 13.07, y: 0, z: 0}
   mass: 317.8
+--- !u!114 &-3337259808704907509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046966052601874291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b473b5e726b74724b80675b1f4f28bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsCount: 150
+  linesCount: 20
+  step: 0.01
+  Active: 0

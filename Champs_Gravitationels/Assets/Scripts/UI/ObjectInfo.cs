@@ -3,6 +3,7 @@ using System.Globalization;
 using Global;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Vector3 = System.Numerics.Vector3;
 
 public class ObjectInfo : UIPanel
@@ -20,6 +21,8 @@ public class ObjectInfo : UIPanel
     [SerializeField] private TMP_InputField zSpeedInput;
     [SerializeField] private TMP_InputField sizeInput;
     [SerializeField] private TMP_InputField massInput;
+    [SerializeField] private Button fieldInput;
+    [SerializeField] private Button LineInput;
 
     private TextMeshProUGUI m_xPosPlaceholder;
     private TextMeshProUGUI m_yPosPlaceholder;
@@ -63,7 +66,8 @@ public class ObjectInfo : UIPanel
         m_zSpeedPlaceholder = zSpeedInput.placeholder as TextMeshProUGUI;
         m_sizePlaceholder = sizeInput.placeholder as TextMeshProUGUI;
         m_massPlaceholder = massInput.placeholder as TextMeshProUGUI;
-
+        fieldInput.onClick.AddListener(SetField);
+        LineInput.onClick.AddListener(SetLine);
         /*
          * Must call gameobject twice to enable all children before enabling the actual parent
          * Otherwise, causes a NullReferenceException
@@ -79,10 +83,15 @@ public class ObjectInfo : UIPanel
 
     public override void Disable()
     {
+        m_selectedObj.GetComponent<FieldLines>().Active = false;
+        m_selectedObj.GetComponent<FieldLines>().RemoveLines();
+
         CustomEvents.OnCelestialObjectClicked -= UpdateData;
 
         StopCoroutine(DataUpdateLoop());
 
+        fieldInput.onClick.RemoveListener(SetField);
+        LineInput.onClick.RemoveListener(SetLine);
         gameObject.SetActive(false);
     }
 
@@ -189,6 +198,30 @@ public class ObjectInfo : UIPanel
     {
         m_selectedObj.kmsSpeed = PhysicManager.VectorToEngine(newSpeed);
         inputField.text = "";
+    }
+
+    private void SetField()
+    {
+        Debug.Log("Not set yet");
+    }
+
+    private void SetLine()
+    {
+        FieldLines selectedFieldLines = m_selectedObj.GetComponent<FieldLines>();
+
+        if (selectedFieldLines != null)
+        {
+            if (selectedFieldLines.Active)
+            {
+                selectedFieldLines.Active = false;
+                selectedFieldLines.RemoveLines();
+            }
+            else
+            {
+                selectedFieldLines.Active = true;
+                selectedFieldLines.SetupFieldLines();
+            }
+        }
     }
 
     #endregion

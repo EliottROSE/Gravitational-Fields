@@ -12,6 +12,9 @@ public class PhysicManager : MonoBehaviour
 
     private Dictionary<Vector3, float> m_originPointsData;
 
+    public List<LineRenderer> lineRenderers;
+    public List<Vec3> spherePoints;
+    public List<Vec3> startPositions;
     private void Start()
     {
         foreach (CelestialObject celestialObjectPrefab in prefabs)
@@ -24,6 +27,8 @@ public class PhysicManager : MonoBehaviour
         }
 
         StartCompute();
+
+
     }
 
     private void FixedUpdate()
