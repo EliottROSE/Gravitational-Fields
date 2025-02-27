@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
         
         GameObject sun = GameObject.Find("Sun(Clone)");
         transform.LookAt(sun.transform);
+        UIManager.Instance.EnablePanel(UIState.MAIN);
     }
 
     // Update is called once per frame

@@ -13,7 +13,8 @@ namespace Global
         HIDDEN,
         CREATION,
         INFORMATION,
-        TIME_CONTROL
+        TIME_CONTROL,
+        MAIN
     }
 }
 

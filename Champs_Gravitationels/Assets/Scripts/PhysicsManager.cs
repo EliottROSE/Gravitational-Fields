@@ -17,6 +17,7 @@ public class PhysicManager : MonoBehaviour
     public List<Vec3> startPositions;
     private void Start()
     {
+
         foreach (CelestialObject celestialObjectPrefab in prefabs)
         {
             CelestialObject celestialInstance = Instantiate(celestialObjectPrefab,
