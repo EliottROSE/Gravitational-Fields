@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &117078656479621027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3167811287652587964}
+  - component: {fileID: 7706773819502419326}
+  m_Layer: 0
+  m_Name: PhysicsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &3167811287652587964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117078656479621027}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.6813583, y: -6.198063, z: 9.178684}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7706773819502419326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117078656479621027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce97d36e31d4e24093372f42ae309b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instantiatedObjects: []
+  prefabs:
+  - {fileID: 5634238979271938835, guid: 617fbfec9b7c6e7498b4008fce0cf3d6, type: 3}
+  - {fileID: 3380510916457202282, guid: d36b4c828ac248b488c3a8143a27b279, type: 3}
+  - {fileID: 8054892799927412492, guid: 55b6cbdf61abf1f47afb0a2ff5c81fbe, type: 3}
+  - {fileID: 813178446052975709, guid: 74bad4c6eea6b6146a500d8e38f626f1, type: 3}
+  - {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759, type: 3}
+  - {fileID: 7490434030131816097, guid: 2ee92bc784b8531438530b23f9b72e6f, type: 3}
+  - {fileID: 5873561715197865291, guid: ea2c89f55f66fcc47a0f260840b4d24c, type: 3}
+  genericPrefab: {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759,
+    type: 3}
+  bIgnoreSun: 1
+  lineRenderers: []
+  spherePoints: []
+  startPositions: []
+  accuracy: 0.001
