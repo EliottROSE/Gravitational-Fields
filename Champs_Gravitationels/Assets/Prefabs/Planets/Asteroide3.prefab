@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30a3aca9c775442b336de2ff1197c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Earth
+  objectName: Asteroide
   originalPosition: {x: 0.92, y: -0.38, z: 0.12}
   kmsSpeed: {x: -9.8, y: 3.2, z: -6.7}
   mass: 0.0032

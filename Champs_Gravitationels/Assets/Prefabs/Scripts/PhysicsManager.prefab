@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3167811287652587964
 Transform:
@@ -51,6 +51,12 @@ MonoBehaviour:
   - {fileID: 8054892799927412492, guid: 55b6cbdf61abf1f47afb0a2ff5c81fbe, type: 3}
   - {fileID: 813178446052975709, guid: 74bad4c6eea6b6146a500d8e38f626f1, type: 3}
   - {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759, type: 3}
-  - {fileID: 5873561715197865291, guid: ea2c89f55f66fcc47a0f260840b4d24c, type: 3}
   - {fileID: 7490434030131816097, guid: 2ee92bc784b8531438530b23f9b72e6f, type: 3}
+  - {fileID: 5873561715197865291, guid: ea2c89f55f66fcc47a0f260840b4d24c, type: 3}
+  genericPrefab: {fileID: 2118298818934405338, guid: 59356bbce393777449264ba17f1d6759,
+    type: 3}
   bIgnoreSun: 1
+  lineRenderers: []
+  spherePoints: []
+  startPositions: []
+  accuracy: 0.001

@@ -25,6 +25,8 @@ public class ObjectInfo : UIPanel
     [SerializeField] private Button fieldInput;
     [SerializeField] private Button LineInput;
     [SerializeField] private Button LineDimensionInput;
+    [SerializeField] private Slider sliderFieldSize;
+    [SerializeField] private Slider sliderFieldDensity;
 
     private TextMeshProUGUI m_xPosPlaceholder;
     private TextMeshProUGUI m_yPosPlaceholder;
@@ -77,6 +79,8 @@ public class ObjectInfo : UIPanel
         fieldInput.onClick.AddListener(SetField);
         LineInput.onClick.AddListener(SetLine);
         LineDimensionInput.onClick.AddListener(SetFieldDimension);
+        sliderFieldSize.onValueChanged.AddListener(ChangeFieldSize);
+        sliderFieldDensity.onValueChanged.AddListener(ChangeFieldDensity);
         /*
          * Must call gameobject twice to enable all children before enabling the actual parent
          * Otherwise, causes a NullReferenceException
@@ -88,6 +92,7 @@ public class ObjectInfo : UIPanel
          * Must be done after the GameObject has been enabled
          */
         StartCoroutine(DataUpdateLoop());
+        
     }
 
     public override void Disable()
@@ -105,6 +110,8 @@ public class ObjectInfo : UIPanel
         fieldInput.onClick.RemoveListener(SetField);
         LineInput.onClick.RemoveListener(SetLine);
         LineDimensionInput.onClick.RemoveListener(SetFieldDimension);
+        sliderFieldSize.onValueChanged.RemoveListener(ChangeFieldSize);
+        sliderFieldDensity.onValueChanged.RemoveListener(ChangeFieldDensity);
         gameObject.SetActive(false);
     }
 
@@ -252,6 +259,18 @@ public class ObjectInfo : UIPanel
             selectedFieldLines.Active = true;
             selectedFieldLines.SetupFieldLines();
         }
+    }
+
+    private void ChangeFieldSize(float newValue)
+    {
+        GravityFieldVisualizer visualizer = FindAnyObjectByType<GravityFieldVisualizer>();
+        visualizer.gridSize = newValue;
+    }
+
+    private void ChangeFieldDensity(float newValue)
+    {
+        GravityFieldVisualizer visualizer = FindAnyObjectByType<GravityFieldVisualizer>();
+        visualizer.density = (int)newValue;
     }
 
     #endregion

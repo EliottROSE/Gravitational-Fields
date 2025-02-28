@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1796695995278462138
 Transform:
   m_ObjectHideFlags: 0
@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityField: {fileID: 0}
-  density: 6
-  spacing: 3
-  objectMask:
-    serializedVersion: 2
-    m_Bits: 8
+  cameraC: {fileID: 0}
+  density: 10
+  gridSize: 1
   is2DMode: 1
+  isFieldVisible: 0
