@@ -97,7 +97,7 @@ public class MainPanel : UIPanel
         {
             zSpeedInput.text = "";
         }
-        Vector3 newSpeed = new Vector3(valueX, valueY, valueZ);
+        Vector3 newSpeed = new(valueX, valueY, valueZ);
         return newSpeed;
     }
 

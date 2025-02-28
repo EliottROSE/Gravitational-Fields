@@ -16,7 +16,6 @@ public class PhysicManager : MonoBehaviour
     public List<Vec3> startPositions;
 
     public static bool IsPaused = false;
-    private Dictionary<Vector3, float> m_originPointsData;
     [SerializeField] private float accuracy = 0.001f;
 
     private void Start()
@@ -37,8 +36,7 @@ public class PhysicManager : MonoBehaviour
     {
         if (IsPaused)
             return;
-        //Debug.Log("-------------------------------------------------------------------------------------------------------------");
-        //Debug.Log("Frame : " + frame);
+
         foreach (CelestialObject celestialObject in instantiatedObjects)
         {
             Vector3 pos = NewPosition(celestialObject.AstronomicalPos, celestialObject.msSpeed,

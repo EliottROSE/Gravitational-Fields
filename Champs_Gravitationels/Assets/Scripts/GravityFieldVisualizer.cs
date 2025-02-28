@@ -32,9 +32,6 @@ public class GravityFieldVisualizer : MonoBehaviour
 
     private void UpdateGrid()
     {
-        /*if (!isFieldVisible)
-            return;*/
-
         foreach (LineRenderer arrow in arrows)
         {
             Vector3 position = arrow.transform.position;

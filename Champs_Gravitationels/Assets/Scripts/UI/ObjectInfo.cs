@@ -2,6 +2,7 @@ using System.Collections;
 using System.Globalization;
 using Global;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector3 = System.Numerics.Vector3;
@@ -91,10 +92,10 @@ public class ObjectInfo : UIPanel
 
     public override void Disable()
     {
-        if (m_selectedObj.GetComponent<FieldLines>().Active)
+        if (m_selectedObj.TryGetComponent(out FieldLines lines) && lines.Active)
         {
-            m_selectedObj.GetComponent<FieldLines>().Active = false;
-            m_selectedObj.GetComponent<FieldLines>().RemoveLines();
+            lines.Active = false;
+            lines.RemoveLines();
         }
 
         CustomEvents.OnCelestialObjectClicked -= UpdateData;
@@ -129,9 +130,9 @@ public class ObjectInfo : UIPanel
     {
         if (!m_selectedObj) return;
         objectNameText.SetText(m_selectedObj.objectName);
-        m_xPosPlaceholder.SetText(m_selectedObj.transform.position.x / 10f + " ua");
-        m_yPosPlaceholder.SetText(m_selectedObj.transform.position.y / 10f + " ua");
-        m_zPosPlaceholder.SetText(m_selectedObj.transform.position.z / 10f + " ua");
+        m_xPosPlaceholder.SetText(m_selectedObj.transform.position.x + " ua");
+        m_yPosPlaceholder.SetText(m_selectedObj.transform.position.y + " ua");
+        m_zPosPlaceholder.SetText(m_selectedObj.transform.position.z + " ua");
         m_xSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.x + " km/s");
         m_ySpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.y + " km/s");
         m_zSpeedPlaceholder.SetText(m_selectedObj.kmsSpeed.z + " km/s");
