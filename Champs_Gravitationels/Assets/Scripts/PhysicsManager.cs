@@ -129,7 +129,7 @@ public class PhysicManager : MonoBehaviour
             Vec3 direction = celestialObject.transform.position - target;
             float distanceSqr = direction.magnitude;
 
-            if (!(distanceSqr > 0.001f)) continue; // Avoid 0 divisions
+            if (!(distanceSqr > 0.001f)) continue; // Avoid dividing by 0
 
             float forceMagnitude = Constant.Gravity * mass / distanceSqr;
             totalGravity += direction.normalized * forceMagnitude;

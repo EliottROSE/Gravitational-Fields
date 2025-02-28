@@ -209,8 +209,6 @@ public class ObjectInfo : UIPanel
             return;
         }
 
-        //inputVal *= PhysicManager.Constant.KmPerSecToMeterPerSec / 1000f;
-
         Vector3 newSpeed = new(value, m_selectedObj.kmsSpeed.y, m_selectedObj.kmsSpeed.z);
         UpdateSpeed(newSpeed, xSpeedInput);
     }

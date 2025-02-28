@@ -18,15 +18,18 @@ public class CameraController : MonoBehaviour
     [SerializeField] private bool m_useStaticCamera;
     [SerializeField] private PhysicManager manager;
 
-    private float m_azimuth; //Longitude
     private Camera m_cam;
-    private float m_elevation = 20.0f; //Colatitude
+
+    private float m_azimuth; //Longitude
+    private float m_elevation; //Colatitude
     private bool m_isOrbitMode;
     private float m_pitch;
+    private float m_yaw;
 
     private Transform m_target; //Target of the camera
+
     private int m_uiLayer;
-    private float m_yaw;
+
 
     // Start is called before the first frame update
     private void Start()
