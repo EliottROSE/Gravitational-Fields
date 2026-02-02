@@ -1,7 +1,7 @@
-Champs gravitationnel Uranus
+# Champs gravitational
 
 
-Controls:
+## Controls:
 
 Mouse :
 camera rotation (first person) Hold right click
@@ -32,6 +32,8 @@ When in orbit mode:
 -Change scene
 -Add a celestial body to the scene
 
-
+##Demo 
+![Demo Image Standard Scene](https://i.imgur.com/sYi6tyz.png)
+![Demo Image Standard Scene](https://i.imgur.com/GG3BTpB.png)
 
 Project by : Ethan Ruhlmann / Eliott Rose / Kenzo Ondet
